@@ -1,13 +1,32 @@
 body {
   margin: 0;
-  font-family: 'Dosis',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: "Dosis", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: 'Dosis',source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: "Dosis", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.gradient-button {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  background: linear-gradient(313deg, #ec8525, #e838e3);
+}
+.nav-link {
+  text-decoration: none !important;
+  color: black !important;
+}
+.nav-link > p {
+  text-decoration: none !important;
+  color: black !important;
+}
+.nav-link :hover {
+  text-decoration: none !important;
+  color: blue !important;
 }

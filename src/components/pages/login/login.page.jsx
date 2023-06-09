@@ -1,5 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import "./login.css";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
+import { useTheme } from "@mui/material/styles";
 
 import { Box, Button, Grid, OutlinedInput, InputLabel } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -20,37 +23,43 @@ function handleFormChange({ e, name, setForm, form }) {
 function handleFormSubmit(form) {
   authService.login();
   console.log("form", form);
+  console.log('theme.breakpoints.down("md")', theme.breakpoints.down("md"));
 }
 
 export default function loginPage() {
+  const theme = useTheme();
+  console.log("theme", theme);
+  const gridItemStyle = {
+    py: 2,
+  };
   const [form, setForm] = useState({
     userName: "",
     password: "",
   });
 
   const [setShow, show] = useState(false);
-
   return (
     <Box
       display="flex"
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
+      className="login-background"
     >
       <Paper
         sx={{
-          width: "30vw",
+          width: theme.breakpoints.down("md") ? "30%" : "20%",
           height: "50vh",
           p: 4,
         }}
       >
-        <Grid container justifyContent="center" spacing={2}>
-          <Grid item>
-            <Typography variant="h5" gutterBottom sx={{ fontFamily: "Dosis" }}>
-              Login
+        <Grid container textAlign="center" direction="column">
+          <Grid item sx={gridItemStyle}>
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+              User Login
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6} lg={12}>
+          <Grid item sx={gridItemStyle}>
             <TextField
               label="User name"
               id="UserNameTextField"
@@ -62,7 +71,7 @@ export default function loginPage() {
               }
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={12}>
+          <Grid item sx={gridItemStyle}>
             {/* <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
@@ -95,8 +104,16 @@ export default function loginPage() {
               }
             />
           </Grid>
-          <Grid item xs={12} md={6} lg={12}>
-            <Button onClick={() => handleFormSubmit(form)}>Sign In</Button>
+          <Grid item sx={gridItemStyle}>
+            <div>
+              <Button
+                sx={{ width: "100%" }}
+                className="gradient-button"
+                onClick={() => handleFormSubmit(form)}
+              >
+                Sign In
+              </Button>
+            </div>
           </Grid>
         </Grid>
       </Paper>

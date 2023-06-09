@@ -1,4 +1,6 @@
-.tool-bar{
-    background: #efefef;
-    
+.tool-bar {
+  background: #efefef;
+}
+.MuiButton-text {
+  text-transform: unset !important;
 }
