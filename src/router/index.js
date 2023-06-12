@@ -6,7 +6,7 @@ import home from "./home.router";
 
 export default createBrowserRouter([
   {
-    path: "/login",
+    path: "/auth",
     element: <Blank />,
     children: [...auth],
   },

@@ -1,3 +1,17 @@
 .login-background {
   background: linear-gradient(313deg, #ec8525, #e838e3);
 }
+.MuiButton-text {
+  text-transform: unset !important;
+}
+.links{
+  text-decoration: none;
+}
+.links > p{
+  text-decoration: none;
+  color: #6c6cf3 !important;
+}
+.links :hover {
+  text-decoration: none;
+  color: blue !important;
+}

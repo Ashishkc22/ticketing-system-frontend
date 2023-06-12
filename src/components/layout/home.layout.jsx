@@ -5,10 +5,12 @@ export function Home() {
   const Links = [
     {
       text: "Projects",
+      type: "drop-down",
       path: "/projects",
     },
     {
       text: "Tickets",
+      type: "Links",
       path: "/tickets",
     },
   ];

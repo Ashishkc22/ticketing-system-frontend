@@ -12,9 +12,9 @@ import {
   Grid,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import DropDown from "../DropDown/dropdown";
 
 export default function AppHeader({ Links = [] }) {
-  console.log("Links", Links);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,11 +28,15 @@ export default function AppHeader({ Links = [] }) {
             {Links.map((link) => {
               return (
                 <Grid key={link.text} item sx={{ mx: 2 }}>
-                  <NavLink to={link.path} className="nav-link">
-                    <Typography color="primary.light" veriant="h4">
-                      {link.text}
-                    </Typography>
-                  </NavLink>
+                  {link.type === "drop-down" ? (
+                    <DropDown />
+                  ) : (
+                    <NavLink to={link.path} className="nav-link">
+                      <Typography color="primary.light" veriant="h4">
+                        {link.text}
+                      </Typography>
+                    </NavLink>
+                  )}
                 </Grid>
               );
             })}
