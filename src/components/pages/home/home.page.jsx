@@ -1,12 +1,46 @@
-export default function home() {
+import { useEffect } from "react";
+import Card from "../../common/Card/Card";
+import Grid from "@mui/material/Grid";
+import { thunks, actions as commonActions } from "../../../store/common";
+import { useDispatch, useSelector } from "react-redux";
+import { useTheme } from "@mui/material/styles";
+
+console.log("commonActions------>>>>>>", commonActions);
+
+export default function Home() {
+  const theme = useTheme();
+  const projectsDetails = useSelector((state) => state.common.projectDetails);
+  console.log("Reedux Projects=>>>>>", projectsDetails);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(thunks["projects/getProjects"]());
+  }, []);
+
   return (
-    <>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam incidunt
-      porro, minima sunt similique perspiciatis maxime harum nihil repellendus
-      voluptas voluptatibus excepturi ab placeat veritatis velit. Commodi
-      ducimus labore quod iusto aspernatur quaerat nam nemo! Repellat alias,
-      eius iure necessitatibus nesciunt magnam corporis fugit inventore quod quo
-      dolor doloremque commodi.
-    </>
+    <Grid
+      container
+      spacing={2}
+      direction="row"
+      sx={{
+        [theme.breakpoints.only("xs")]: { justifyContent: "center" },
+        [theme.breakpoints.up("xs")]: { justifyContent: "flex-start" },
+      }}
+      alignItems="center"
+    >
+      {projectsDetails?.projects?.length &&
+        projectsDetails.projects.map((project) => (
+          <Grid item>
+            <Card
+              width={240}
+              isLoading={projectsDetails?.isProjectsLoading}
+              projectName={project.name}
+              action={() => {
+                dispatch(commonActions.setProject(project));
+                console.log("selected project", project);
+              }}
+            />
+          </Grid>
+        ))}
+    </Grid>
   );
 }

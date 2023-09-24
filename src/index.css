@@ -13,10 +13,9 @@ code {
 }
 
 .gradient-button {
-  border-radius: 20px !important;
-  font-weight: 600 !important;
-  color: white !important;
-  background: linear-gradient(313deg, #ec8525, #e838e3);
+  /* border-radius: 20px !important;
+  font-weight: 600 !important; */
+  /* background: linear-gradient(313deg, #001feb, #ffffff); */
 }
 .nav-link {
   text-decoration: none !important;

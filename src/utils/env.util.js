@@ -7,6 +7,10 @@ const apiInfo = {
   pro: {},
 };
 
+function getSystemDomain() {
+  return document.location.host;
+}
+
 function isLocalEnvironment() {
   const ipAddress = window.location.hostname;
 
@@ -24,8 +28,16 @@ function getPort() {
   return isLocalEnvironment() ? apiInfo.dev.port : apiInfo.pro.port;
 }
 
-function getApiUrl() {
+function getDomain() {
   return isLocalEnvironment() ? apiInfo.dev.url : apiInfo.pro.url;
+}
+
+function getApiUrl({ path = false }) {
+  let url = `${protocol()}://${getDomain()}:${getPort()}`;
+  if (path) {
+    url += `/${path}`;
+  }
+  return url;
 }
 
 export default {
@@ -33,4 +45,5 @@ export default {
   getApiUrl,
   isLocalEnvironment,
   protocol,
+  getSystemDomain,
 };

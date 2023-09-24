@@ -1,28 +1,33 @@
 import axios from "axios";
 import envUtil from "./env.util";
 import { isEmpty } from "lodash";
+import tokenUtil from "./token.util";
 
 // const PARAMS = ["get", "put", "delete"];
 // const BODY = ["post"];
 
-const { protocol, getApiUrl, getPort } = envUtil;
+const { getApiUrl } = envUtil;
 
 function request({ path, method, params, body, options }) {
+  console.log("tokenUtil", tokenUtil);
+  const token = tokenUtil.getAuthToken();
   return axios({
     method,
-    url: `${protocol()}://${getApiUrl()}:${getPort()}/${path}`,
+    url: getApiUrl({ path }),
     headers: {
       "Content-Type": "application/json",
+      ...(token && { Authorization: token }),
     },
     ...(params && { params }),
     ...(!isEmpty(body) && { data: body }),
   })
     .then((data) => {
       console.log("then,", data);
-      return data;
+      return { data: data.data };
     })
-    .catch((err) => {
-      console.error("err", err);
+    .catch((error) => {
+      console.error("err", error);
+      return { error: error.message };
     });
 }
 

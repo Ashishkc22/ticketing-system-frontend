@@ -1,5 +1,7 @@
 .login-background {
-  background: linear-gradient(313deg, #ec8525, #e838e3);
+  /* background-color: rgb(33, 33, 33); */
+  /* filter: blur(1px); */
+  /* background: linear-gradient(333deg, #001feb, #ffffff); */
 }
 .MuiButton-text {
   text-transform: unset !important;
@@ -15,3 +17,6 @@
   text-decoration: none;
   color: blue !important;
 }
+/* .text-white-color {
+  color: white;
+} */

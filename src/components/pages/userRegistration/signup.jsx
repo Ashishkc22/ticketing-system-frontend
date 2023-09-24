@@ -94,7 +94,7 @@ export default function signup() {
       });
     }
     if (isFormValid) {
-      authService.login(form);
+      authService.registration(form);
     }
   }
 
