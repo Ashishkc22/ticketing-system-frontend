@@ -73,8 +73,6 @@ export default function AppHeader() {
                 <InputLabel id="demo-simple-select-label">
                   Your project
                 </InputLabel>
-                {/* {JSON.stringify(projectsDetails?.projects)} */}
-
                 {projectsDetails?.projects?.length && (
                   <Select
                     labelId="demo-simple-select-label"
@@ -88,15 +86,11 @@ export default function AppHeader() {
                     {projectsDetails.projects.map((project) => (
                       <MenuItem value={project}>{project?.name}</MenuItem>
                     ))}
-                    {/* <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem> */}
                   </Select>
                 )}
               </FormControl>
             </Box>
           )}
-          {JSON.stringify(loginedUserDetails)}
           <Grid container sx={{ flexDirection: "row-reverse" }}>
             <Menu
               id="menu-appbar"
@@ -113,7 +107,7 @@ export default function AppHeader() {
               onClose={() => setIsMenuOpen(false)}
             >
               <MenuItem value="setting">
-                <SettingsIcon />
+                <SettingsIcon sx={{ mx: 1 }} />
                 Settings
               </MenuItem>
               <MenuItem
@@ -123,7 +117,7 @@ export default function AppHeader() {
                   nav("/auth/login");
                 }}
               >
-                <LogoutIcon />
+                <LogoutIcon sx={{ mx: 1 }} />
                 Logout
               </MenuItem>
             </Menu>
@@ -132,7 +126,10 @@ export default function AppHeader() {
                 sx={{ bgcolor: deepOrange[500] }}
                 onClick={() => console.log("hello")}
               >
-                P
+                {!isEmpty(loginedUserDetails.payload) &&
+                  loginedUserDetails?.payload?.email
+                    ?.substring(0, 2)
+                    ?.toLocaleUpperCase()}
               </Avatar>
             </IconButton>
           </Grid>

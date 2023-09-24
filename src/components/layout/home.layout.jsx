@@ -4,6 +4,11 @@ import AppBar from "../common/AppBar/appBar";
 import Box from "@mui/material/Box";
 import { styled, useTheme } from "@mui/material/styles";
 import Container from "@mui/material/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import tokenUtil from "../../utils/token.util";
+import { actions } from "../../store/common";
+import { isEmpty } from "lodash";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -15,6 +20,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export function Home() {
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.common.userDetails);
+  useEffect(() => {
+    if (isEmpty(userDetails)) {
+      const token = tokenUtil.getAuthToken();
+      const userDetails = tokenUtil.getTokenDetails(token);
+      dispatch(actions.setLoggedInUserDetails(userDetails));
+    }
+  }, []);
   return (
     <Box>
       <AppBar />

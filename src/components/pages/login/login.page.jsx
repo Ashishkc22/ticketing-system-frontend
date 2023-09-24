@@ -65,11 +65,7 @@ export default function loginPage() {
     });
     if (isFormValid) {
       setButtonLoading(true);
-      // useDispatch();
-      console.log('thunks["auth/login"]', thunks["auth/login"]);
-      console.log("form", form);
       const result = await dispatch(thunks["auth/login"](form));
-      console.log("result======", result);
       if (!result?.error) {
         enqueueSnackbar("login successful.", { variant: "success" });
         setTimeout(() => {

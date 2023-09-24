@@ -9,7 +9,7 @@ export default {
   setProject: (state, data) => {
     state.projectDetails = { ...state.projectDetails, selected: data };
   },
-  setLoggedInUserDetails: (state) => {
-    state.isUserLoggedIn = !state.isUserLoggedIn;
+  setLoggedInUserDetails: (state, details) => {
+    state.userDetails = details;
   },
 };
