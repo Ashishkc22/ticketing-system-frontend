@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 const auth = require("../../services/auth");
-const tokenUtil = require("../../utils/token.util");
+import tokenUtil from "../../utils/token.util";
 const common = require("../../services/common");
 
 export default [

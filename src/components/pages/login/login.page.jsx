@@ -67,13 +67,19 @@ export default function loginPage() {
       setButtonLoading(true);
       const result = await dispatch(thunks["auth/login"](form));
       if (!result?.error) {
-        enqueueSnackbar("login successful.", { variant: "success" });
+        enqueueSnackbar("login successful.", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
         setTimeout(() => {
           nav("/");
           setButtonLoading(false);
         }, 1000);
       } else {
-        enqueueSnackbar(result?.error?.message, { variant: "error" });
+        enqueueSnackbar(result?.error?.message, {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
         setButtonLoading(false);
       }
     }

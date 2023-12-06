@@ -5,8 +5,6 @@ import { thunks, actions as commonActions } from "../../../store/common";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
 
-console.log("commonActions------>>>>>>", commonActions);
-
 export default function Home() {
   const theme = useTheme();
   const projectsDetails = useSelector((state) => state.common.projectDetails);
@@ -36,7 +34,6 @@ export default function Home() {
               projectName={project.name}
               action={() => {
                 dispatch(commonActions.setProject(project));
-                console.log("selected project", project);
               }}
             />
           </Grid>

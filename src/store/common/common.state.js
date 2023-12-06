@@ -3,6 +3,7 @@ export default {
   isDrawerOpen: false,
   isUserLoggedIn: false,
   userDetails: {},
+  selectedMenuPath: "/",
   projectDetails: {
     selected: {},
     isProjectsLoading: false,

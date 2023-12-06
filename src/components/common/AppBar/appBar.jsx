@@ -52,6 +52,8 @@ export default function AppHeader() {
   const projectsDetails = useSelector((state) => state.common.projectDetails);
   const loginedUserDetails = useSelector((state) => state.common.userDetails);
 
+  console.log("App bar-----<<<< loginedUserDetails >>>>", loginedUserDetails);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -67,24 +69,24 @@ export default function AppHeader() {
               <img Button alt="Your logo." src="logo.png" />
             </Button>
           </ImageListItem>
-          {!isEmpty(projectsDetails?.selected) && (
+          {!isEmpty(projectsDetails.selected) && (
             <Box sx={{ minWidth: 150, m: 1 }}>
               <FormControl fullWidth size="small">
                 <InputLabel id="demo-simple-select-label">
-                  Your project
+                  Selected project
                 </InputLabel>
                 {projectsDetails?.projects?.length && (
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={projectsDetails.selected.payload}
-                    label="Your project"
+                    value={projectsDetails?.selected?._id}
+                    label="Selected project"
                     onChange={(value) => {
                       dispatch(actions.setProject(value.target.value));
                     }}
                   >
                     {projectsDetails.projects.map((project) => (
-                      <MenuItem value={project}>{project?.name}</MenuItem>
+                      <MenuItem value={project._id}>{project?.name}</MenuItem>
                     ))}
                   </Select>
                 )}
@@ -126,10 +128,12 @@ export default function AppHeader() {
                 sx={{ bgcolor: deepOrange[500] }}
                 onClick={() => console.log("hello")}
               >
-                {!isEmpty(loginedUserDetails.payload) &&
-                  loginedUserDetails?.payload?.email
+                {
+                  /* {!isEmpty(loginedUserDetails.payload) && */
+                  loginedUserDetails?.email
                     ?.substring(0, 2)
-                    ?.toLocaleUpperCase()}
+                    ?.toLocaleUpperCase()
+                }
               </Avatar>
             </IconButton>
           </Grid>

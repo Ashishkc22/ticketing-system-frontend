@@ -7,9 +7,12 @@ export default {
     state.isUserLoggedIn = !state.isUserLoggedIn;
   },
   setProject: (state, data) => {
-    state.projectDetails = { ...state.projectDetails, selected: data };
+    state.projectDetails = { ...state.projectDetails, selected: data?.payload };
   },
   setLoggedInUserDetails: (state, details) => {
-    state.userDetails = details;
+    state.userDetails = details.payload;
+  },
+  setSelectedMenuPath: (state, data) => {
+    state.selectedMenuPath = data.payload;
   },
 };

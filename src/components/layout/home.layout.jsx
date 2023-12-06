@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useRouteError, isRouteErrorResponse } from "react-router-dom";
 import Menu from "../../components/common/Menu/menu";
 import AppBar from "../common/AppBar/appBar";
 import Box from "@mui/material/Box";
@@ -21,6 +21,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export function Home() {
   const dispatch = useDispatch();
+  const error = useRouteError();
+
   const userDetails = useSelector((state) => state.common.userDetails);
   useEffect(() => {
     if (isEmpty(userDetails)) {
@@ -35,6 +37,7 @@ export function Home() {
       <Menu />
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
+
         <Container sx={{ my: 2, px: 0 }} maxWidth="false">
           <Outlet />
         </Container>

@@ -20,7 +20,6 @@ export default function ProjectCard({
           if (action) {
             action();
           }
-          console.log("clicked card");
         }}
       >
         <Box
@@ -29,9 +28,7 @@ export default function ProjectCard({
             minWidth: 300,
             backgroundColor: color,
           }}
-        >
-          {/* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, cumque. */}
-        </Box>
+        ></Box>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {projectName}
