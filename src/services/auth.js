@@ -23,16 +23,14 @@ async function login(payload) {
 
 async function registration(payload) {
   const _payload = {
-    phone: payload.phone,
     email: payload.email,
     password: payload.password,
+    confirmPassword: payload.confirmPassword,
   };
-  const data = await axiosUtil.post({
+  return await axiosUtil.post({
     path: "api/v1/auth/registration",
     body: _payload,
   });
-
-  console.log("response", data);
 }
 
 export default {

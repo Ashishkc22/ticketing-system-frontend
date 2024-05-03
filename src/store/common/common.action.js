@@ -6,9 +6,6 @@ export default {
     console.log("triggered user logged in sate change");
     state.isUserLoggedIn = !state.isUserLoggedIn;
   },
-  setProject: (state, data) => {
-    state.projectDetails = { ...state.projectDetails, selected: data?.payload };
-  },
   setLoggedInUserDetails: (state, details) => {
     state.userDetails = details.payload;
   },

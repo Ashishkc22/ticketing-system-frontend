@@ -16,9 +16,11 @@ import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import { NavLink } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function signup() {
+  const nav = useNavigate();
   const paperStyle = styled("paper")(({ theme }) => ({
     padding: theme.spacing(1),
     [theme.breakpoints.down("md")]: {
@@ -49,7 +51,6 @@ export default function signup() {
     message: "",
   });
   const [form, setForm] = useState({
-    phone: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -94,7 +95,19 @@ export default function signup() {
       });
     }
     if (isFormValid) {
-      authService.registration(form);
+      try {
+        authService.registration(form);
+        enqueueSnackbar("user created successful.", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+        nav("/auth/login");
+      } catch (error) {
+        enqueueSnackbar(error?.message || "Failed to create user.", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
+      }
     }
   }
 
@@ -120,7 +133,7 @@ export default function signup() {
                 Create account
               </Typography>
             </Grid>
-            <Grid item sx={gridItemStyle}>
+            {/* <Grid item sx={gridItemStyle}>
               <TextField
                 label="Mobile no."
                 variant="standard"
@@ -130,7 +143,7 @@ export default function signup() {
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target?.value })}
               />
-            </Grid>
+            </Grid> */}
             <Grid item sx={gridItemStyle}>
               <TextField
                 label="Email"
@@ -251,7 +264,7 @@ export default function signup() {
                   handleFormSubmit(form);
                 }}
               >
-                Login
+                Sign up
               </Button>
             </Grid>
           </Grid>

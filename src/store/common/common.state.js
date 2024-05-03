@@ -4,9 +4,4 @@ export default {
   isUserLoggedIn: false,
   userDetails: {},
   selectedMenuPath: "/",
-  projectDetails: {
-    selected: {},
-    isProjectsLoading: false,
-    projects: [],
-  },
 };

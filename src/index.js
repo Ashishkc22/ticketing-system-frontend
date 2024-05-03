@@ -14,19 +14,19 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  // <React.StrictMode>
-  <Provider store={store}>
-    <ThemeProvider theme={Themes.LightTheme}>
-      <SnackbarProvider
-        maxSnack={4}
-        anchorOrigin={{ horizontal: "right", vertical: "top" }}
-        autoHideDuration="2000"
-      >
-        <RouterProvider router={router} />
-      </SnackbarProvider>
-    </ThemeProvider>
-  </Provider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={Themes.LightTheme}>
+        <SnackbarProvider
+          maxSnack={4}
+          anchorOrigin={{ horizontal: "right", vertical: "top" }}
+          autoHideDuration="2000"
+        >
+          <RouterProvider router={router} />
+        </SnackbarProvider>
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // "eslintConfig": {

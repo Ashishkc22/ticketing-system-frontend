@@ -17,21 +17,6 @@ async function getMenu() {
   return data;
 }
 
-async function getProjects() {
-  const { data, error } = await axiosUtil.get({
-    path: "api/v1/projects/get-projects",
-    // body: _payload,
-  });
-  if (error) {
-    console.log("error", error);
-    throw error;
-  } else {
-    console.log("projects response", data);
-    return data;
-  }
-}
-
 export default {
   getMenu,
-  getProjects,
 };

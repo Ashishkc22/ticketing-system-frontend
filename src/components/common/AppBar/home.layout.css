@@ -1,6 +1,12 @@
 .tool-bar {
-  background: #efefef;
+  background: white;
 }
 .MuiButton-text {
   text-transform: unset !important;
+}
+.selected-link {
+  border-bottom: blue !important;
+  border-bottom-style: solid !important;
+  color: blue !important;
+  border-radius: 0px !important
 }

@@ -2,6 +2,8 @@ import axios from "axios";
 import envUtil from "./env.util";
 import { isEmpty } from "lodash";
 import tokenUtil from "./token.util";
+import storageUtil from "./storage.util"
+import cookiesUtil from "./cookies.util"
 
 // const PARAMS = ["get", "put", "delete"];
 // const BODY = ["post"];
@@ -11,6 +13,7 @@ const { getApiUrl } = envUtil;
 function request({ path, method, params, body, options }) {
   console.log("tokenUtil", tokenUtil);
   const token = tokenUtil.getAuthToken();
+  console.log("token ==>>", token);
   return axios({
     method,
     url: getApiUrl({ path }),
@@ -26,8 +29,13 @@ function request({ path, method, params, body, options }) {
       return { data: data.data };
     })
     .catch((error) => {
-      console.error("err", error);
-      return { error: error.message };
+      console.error("err", error.response.data.error);
+      if(error.response.data.error === "jwt expired"){
+        console.log('storageUtil',storageUtil);
+        storageUtil.eraseStroageData()
+        cookiesUtil.clearAllCookies()
+      }
+      return { error: error.response.data.error };
     });
 }
 
@@ -38,7 +46,12 @@ function post({ path, body, options }) {
   return request({ method: "post", path, body, options });
 }
 
+function _delete({ path, body, options }) {
+  return request({ method: "delete", path, body, options });
+}
+
 export default {
   get,
   post,
+  delete: _delete,
 };

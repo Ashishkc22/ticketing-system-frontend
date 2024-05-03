@@ -1,13 +1,13 @@
-import initialState from "./common.state";
+import initialState from "./projects.state";
 import { bindMySlice, bindAsyncThunks } from "../../utils/store.util";
-import reducers from "./common.action";
+import reducers from "./projects.action";
 
 const result = bindAsyncThunks({
-  thunks: require("./common.asyncthunk"),
+  thunks: require("./projects.asyncthunk"),
 });
 
 const counterSlice = bindMySlice({
-  name: "common",
+  name: "projects",
   initialState,
   reducers,
   extraReducers: result.extraReducers,

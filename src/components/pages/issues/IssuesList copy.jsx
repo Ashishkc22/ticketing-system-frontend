@@ -15,20 +15,14 @@ import {
   MenuItem,
   TablePagination,
   Box,
-  IconButton, // Import IconButton
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import ClearIcon from "@mui/icons-material/Clear"; // Import ClearIcon
+import { Pagination } from "@mui/material";
 import { thunks } from "../../../store/projects";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import debounce from "lodash.debounce";
 import { isEmpty } from "lodash";
-import Menu from "@mui/material/Menu";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-
-// import MenuItem from '@mui/material/MenuItem';
 import moment from "moment";
 
 let typingTimer;
@@ -45,21 +39,16 @@ const IssueListPage = () => {
   let [statusParams, setStatusParams] = useSearchParams();
   let [queryParamsDetails, setQueryParamsDetails] = useState({});
 
-  const [anchorEl, setAnchorEl] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filteredIssues, setFilteredIssues] = useState([]);
   const [dataCount, setDatacount] = useState(0);
-  const [searchTerm, setSearchTerm] = useState(
-    searchParams.get("search") || ""
-  );
-  const [statusFilter, setStatusFilter] = useState(
-    statusParams.get("status") || ""
-  );
+  const [searchTerm, setSearchTerm] = useState(statusParams.get("search"));
+  const [statusFilter, setStatusFilter] = useState(statusParams.get("status"));
 
   const fetchIssueList = ({ search = false, status = "" }) => {
-    const _search = search;
-    const _status = status || statusFilter;
+    const _search = search || statusParams.get("search") || searchTerm;
+    const _status = status 
     dispatch(
       thunks["projects/getIssueList"]({
         ...(rowsPerPage && { limit: rowsPerPage }),
@@ -75,19 +64,17 @@ const IssueListPage = () => {
 
   useEffect(() => {
     if (!isEmpty(currentProjectDetails)) {
-      fetchIssueList({
-        search: statusParams.get("search"),
-        status: statusParams.get("status"),
-      });
+      fetchIssueList({status: statusParams.get("status")});
     }
   }, [currentProjectDetails]);
 
   useEffect(() => {
-    fetchIssueList({ search: searchTerm });
-  }, [page, rowsPerPage, statusFilter]);
+    fetchIssueList({})
+  },[page,rowsPerPage])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+   
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -98,8 +85,7 @@ const IssueListPage = () => {
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-    const params = { search: term, status: statusFilter };
-    updateSearchParams(params);
+    setQueryParams({ key: "search", value: term });
     if (!/^\s*$/.test(term)) {
       clearTimeout(typingTimer);
       typingTimer = setTimeout(function () {
@@ -108,30 +94,32 @@ const IssueListPage = () => {
     }
   };
 
-  const handleClearSearch = () => {
-    setSearchTerm("");
-    const params = { search: "", status: statusFilter };
-    updateSearchParams(params);
-    fetchIssueList({ search: "" });
+  const setQueryParams = ({ key, value }) => {
+    if (isEmpty(value)) {
+      if (key == "status") {
+        setStatusParams({});
+      } else {
+        setStatusParams({});
+      }
+    } else {
+      if (key == "status") {
+        const status = statusParams.entries()
+
+        debugger;
+        setStatusParams({ [key]: value,...status });
+      } else {
+        const status = statusParams.entries()
+        console.log('statusParams.getAll()',statusParams.entries());
+        setStatusParams({ [key]: value,...status });
+      }
+    }
   };
 
   const handleStatusFilter = (e) => {
     const status = e.target.value;
+    setQueryParams({ key: "status", value: status });
     setStatusFilter(status);
-    const params = { search: searchTerm, status: status };
-    updateSearchParams(params);
-  };
-
-  const updateSearchParams = (params) => {
-    const newSearchParams = new URLSearchParams(location.search);
-    for (const key in params) {
-      if (params[key]) {
-        newSearchParams.set(key, params[key]);
-      } else {
-        newSearchParams.delete(key);
-      }
-    }
-    nav(`${location.pathname}?${newSearchParams.toString()}`);
+    fetchIssueList({ status });
   };
 
   const handleRowClick = (id) => {
@@ -148,11 +136,13 @@ const IssueListPage = () => {
 
   useEffect(() => {
     setFilteredIssues(issueList.data);
-    setDatacount(issueList.count);
+    setDatacount(issueList.count)
   }, [issueList]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", mt: 5 }}>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", mt: 5 }}
+    >
       <Box
         sx={{ display: "flex", justifyContent: "space-between", mb: 2, px: 1 }}
       >
@@ -161,14 +151,7 @@ const IssueListPage = () => {
           variant="standard"
           value={searchTerm}
           onChange={handleSearch}
-          InputProps={{
-            startAdornment: <SearchIcon />,
-            endAdornment: searchTerm && (
-              <IconButton onClick={handleClearSearch} size="small">
-                <ClearIcon sx={{ fontSize: 16 }} />
-              </IconButton>
-            ),
-          }}
+          InputProps={{ startAdornment: <SearchIcon /> }}
           sx={{ width: "40%" }}
         />
         <FormControl variant="standard" sx={{ width: "20%" }}>
@@ -187,19 +170,19 @@ const IssueListPage = () => {
           </Select>
         </FormControl>
       </Box>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+      >
         <Table>
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: "bold", paddingRight: "20px" }}>
                 Issue Id
               </TableCell>
-              <TableCell sx={{ fontWeight: "bold", paddingRight: "20px" }}>
+              <TableCell sx={{ fontWeight: "bold", paddingRight: "20px"}}>
                 Summary
               </TableCell>
-              <TableCell
-                sx={{ fontWeight: "bold", paddingRight: "20px", width: 100 }}
-              >
+              <TableCell sx={{ fontWeight: "bold", paddingRight: "20px",width: 100 }}>
                 Status
               </TableCell>
               <TableCell sx={{ fontWeight: "bold", paddingRight: "20px" }}>
@@ -212,7 +195,7 @@ const IssueListPage = () => {
                 Updated Date
               </TableCell>
               <TableCell sx={{ fontWeight: "bold", paddingRight: "20px" }}>
-                Actions
+               Actions
               </TableCell>
             </TableRow>
           </TableHead>
@@ -220,9 +203,7 @@ const IssueListPage = () => {
             {filteredIssues.map((issue) => (
               <TableRow
                 key={issue.id}
-                onClick={(e) => {
-                  handleRowClick(issue.id);
-                }}
+                onClick={() => handleRowClick(issue.id)}
                 style={{ cursor: "pointer" }}
               >
                 <TableCell>{issue.issueId}</TableCell>
@@ -248,54 +229,6 @@ const IssueListPage = () => {
                 </TableCell>
                 <TableCell>
                   {moment(issue.updatedAt).format("DD-MM-YYYY")}
-                </TableCell>
-                <TableCell>
-                  <MoreVertIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setAnchorEl(e.currentTarget);
-                    }}
-                  />
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setAnchorEl(null);
-                    }}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
-                    }}
-                  >
-                    <MenuItem
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setAnchorEl(null);
-                      }}
-                    >
-                      <IconButton
-                        aria-label="delete"
-                        sx={{ color: "#f44336" }}
-                      >
-                        <DeleteIcon sx={{ fontSize: 20 }}/>
-                      </IconButton>
-                    </MenuItem>
-                    <MenuItem>
-                      <IconButton
-                        aria-label="Edit"
-                        size="xsmall"
-                        sx={{ color: "#974998" }}
-                      >
-                        <EditIcon
-                          sx={{ fontSize: 20 }}
-                        />
-                      </IconButton>
-                    </MenuItem>
-                  </Menu>
                 </TableCell>
               </TableRow>
             ))}
