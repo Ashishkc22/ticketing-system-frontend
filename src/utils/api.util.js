@@ -35,6 +35,10 @@ function request({ path, method, params, body, options }) {
         storageUtil.eraseStroageData()
         cookiesUtil.clearAllCookies()
       }
+      console.log('error', error);
+      if(error.response?.data && error.response.status === 404){
+        return { error: "Not Found" };
+      }
       return { error: error.response.data.error };
     });
 }

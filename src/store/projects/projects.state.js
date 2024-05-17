@@ -9,4 +9,9 @@ export default {
     data: [],
     count: 0
   },
+  boardData: [],
+  boardStatusChangeInProgress: {
+    value: false,
+    isFailed: false
+  }
 };

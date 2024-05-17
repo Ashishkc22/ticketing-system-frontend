@@ -110,4 +110,46 @@ export default [
       },
     },
   },
+  {
+    name: "projects/getIssueByDateRange",
+    thunk: issue.default.getIssueByDateRange,
+    cases: {
+      rejected: (state, action) => {
+        throw new Error("Failed to get issues");
+      },
+      fulfilled: (state, action) => {
+        state.boardStatusChangeInProgress.value = false;
+        state.boardStatusChangeInProgress.isFailed = false;
+        state.boardData = action?.payload?.data || [];
+      },
+    },
+  },
+  {
+    name: "projects/changeIssueStatus",
+    thunk: issue.default.changeIssueStatus,
+    cases: {
+      rejected: (state, action) => {
+        state.boardStatusChangeInProgress.value = false;
+        state.boardStatusChangeInProgress.isFailed = true;
+        enqueueSnackbar("Failed to change issue status", {
+          variant: "error",
+          autoHideDuration: 2000,
+        });
+        console.log('action >>>>>',action);
+        // throw new Error("Failed to get issues");
+      },
+      pending: (state,action) => {
+        state.boardStatusChangeInProgress.value = true;
+        state.boardStatusChangeInProgress.isFailed = false;
+      },
+      fulfilled: (state, action) => {
+        state.boardStatusChangeInProgress.value = false;
+        state.boardStatusChangeInProgress.isFailed = false;
+        enqueueSnackbar("Issue status changed successfully.", {
+          variant: "success",
+          autoHideDuration: 2000,
+        });
+      },
+    },
+  },
 ];

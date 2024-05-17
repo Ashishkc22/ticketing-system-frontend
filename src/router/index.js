@@ -7,6 +7,8 @@ import home from "./home.router";
 import issues from "./issues.router";
 import NotFoundPage from "../components/common/ErrorComponents/NotFoundPage";
 import ProjectDetails from "./project.router";
+import boardRouter from "./board.router";
+import backlogRouter from "./backlogs.router";
 
 export default createBrowserRouter([
   {
@@ -24,7 +26,7 @@ export default createBrowserRouter([
   {
     path: "/project",
     element: <ProjectLayout />,
-    children: [...issues,...ProjectDetails],
+    children: [...issues,...ProjectDetails,...boardRouter,...backlogRouter],
     errorElement: <NotFoundPage />,
   },
 ]);

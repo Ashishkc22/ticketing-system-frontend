@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material";
 
-const fonts = ["Dosis", "Arial", "Roboto"];
+// const fonts = ["Roboto", "Helvetica", "Arial", 'sans-serif'];
+const fonts = ["Dosis", "Arial", "Roboto"]
 
 export default {
   LightTheme: createTheme({
@@ -22,6 +23,53 @@ export default {
     },
     typography: {
       fontFamily: fonts.join(","),
+      h1: {
+        fontSize: '3rem',
+        fontWeight: 300,
+      },
+      // h2: {
+      //   fontSize: '2.5rem',
+      //   fontWeight: 300,
+      // },
+      // h3: {
+      //   fontSize: '2rem',
+      //   fontWeight: 400,
+      // },
+      // h4: {
+      //   fontSize: '1.75rem',
+      //   fontWeight: 400,
+      // },
+      // h5: {
+      //   fontSize: '1.5rem',
+      //   fontWeight: 400,
+      // },
+      // h6: {
+      //   fontSize: '1.25rem',
+      //   fontWeight: 500,
+      // },
+      // subtitle1: {
+      //   fontSize: '1rem',
+      //   fontWeight: 500,
+      // },
+      // body1: {
+      //   fontSize: '1rem',
+      //   fontWeight: 400,
+      // },
+      // button: {
+      //   fontSize: '0.875rem',
+      //   fontWeight: 500,
+      //   textTransform: 'none', // Optional, to keep the text case as is
+      // },
+      // caption: {
+      //   fontSize: '0.875rem',
+      //   fontWeight: 400,
+      //   textDecoration: 'underline', // Optional, for link styling
+      // },
+      // // Custom highlight style
+      // highlight: {
+      //   fontSize: '1rem',
+      //   fontWeight: 700,
+      // },
     },
   }),
   DarkTheme: createTheme({

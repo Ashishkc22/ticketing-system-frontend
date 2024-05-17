@@ -67,6 +67,7 @@ const IssueListPage = () => {
         ...(!isEmpty(_search) && { search: _search }),
         projectId: currentProjectDetails._id,
         ...(!isEmpty(_status) && { status: _status }),
+        isBacklogs: true
       })
     ).catch((error) => {
       console.log("error");
@@ -171,21 +172,6 @@ const IssueListPage = () => {
           }}
           sx={{ width: "40%" }}
         />
-        <FormControl variant="standard" sx={{ width: "20%" }}>
-          <InputLabel>Status</InputLabel>
-          <Select
-            value={statusFilter}
-            onChange={handleStatusFilter}
-            label="Status"
-            startIcon={<FilterAltIcon />}
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="Pending">Pending</MenuItem>
-            <MenuItem value="InProgress">In Progress</MenuItem>
-            <MenuItem value="InReview">InReview</MenuItem>
-            <MenuItem value="Done">Done</MenuItem>
-          </Select>
-        </FormControl>
       </Box>
       <TableContainer component={Paper}>
         <Table>
@@ -208,16 +194,6 @@ const IssueListPage = () => {
                 }}
               >
                 Summary
-              </TableCell>
-              <TableCell
-                sx={{
-                  fontWeight: "bold",
-                  paddingRight: "20px",
-                  width: 100,
-                  textAlign: "center",
-                }}
-              >
-                Status
               </TableCell>
               <TableCell
                 sx={{
@@ -270,19 +246,6 @@ const IssueListPage = () => {
                   {issue.issueId}
                 </TableCell>
                 <TableCell>{truncateSummary(issue.summary)}</TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      background: "#0000ff66",
-                      borderRadius: "20px",
-                      padding: 1,
-                      textAlign: "center",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {issue.status}
-                  </Box>
-                </TableCell>
                 <TableCell sx={{ textAlign: "center" }}>
                   {moment(issue.dueDate).format("DD-MM-YYYY")}
                 </TableCell>

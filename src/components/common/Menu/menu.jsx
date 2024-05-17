@@ -24,9 +24,9 @@ import { isEmpty } from "lodash";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./menu.css";
 import { deepOrange } from "@mui/material/colors";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
+import BugReportOutlinedIcon from '@mui/icons-material/BugReportOutlined';
+import ReorderOutlinedIcon from '@mui/icons-material/ReorderOutlined';
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -97,17 +97,17 @@ const App = () => {
     primary: [
       {
         text: "Issues",
-        icon: () => <BugReportIcon />,
+        icon: () => <BugReportOutlinedIcon />,
         navigationPath: "/project/issues",
       },
       {
         text: "Board",
-        icon: () => <BugReportIcon />,
+        icon: () => <LeaderboardOutlinedIcon />,
         navigationPath: "/project/Board",
       },
       {
         text: "Backlogs",
-        icon: () => <BugReportIcon />,
+        icon: () => <ReorderOutlinedIcon />,
         navigationPath: "/project/Backlogs",
       },
     ],

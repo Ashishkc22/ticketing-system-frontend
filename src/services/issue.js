@@ -23,4 +23,33 @@ async function getIssueList(payload) {
   }
 }
 
-export default { addEditIssue, getIssueList };
+async function getIssueByDateRange(payload) {
+  const { data, error } = await axiosUtil.get({
+    path: "api/v1/projects/get-issue-by-date-range",
+    params: payload,
+  });
+  if (error) {
+    throw error;
+  } else {
+    return data;
+  }
+}
+
+async function changeIssueStatus(payload) {
+  const { data, error } = await axiosUtil.post({
+    path: "api/v1/projects/change-issue-status",
+    body: payload,
+  });
+  if (error) {
+    throw error;
+  } else {
+    return data;
+  }
+}
+
+export default {
+  addEditIssue,
+  getIssueList,
+  getIssueByDateRange,
+  changeIssueStatus,
+};
