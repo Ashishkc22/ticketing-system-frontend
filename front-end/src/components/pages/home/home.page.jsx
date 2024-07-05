@@ -65,6 +65,14 @@ export default function Home() {
     }
   };
 
+  const truncateSummary = (summary) => {
+    const maxLength = 40; // Adjust the maximum length as needed
+    if (summary.length > maxLength) {
+      return summary.substring(0, maxLength) + "...";
+    }
+    return summary;
+  };
+
   const isSelected = (projectId) => selectedProjects.includes(projectId);
 
   return (
@@ -179,7 +187,7 @@ export default function Home() {
                   }}
                 >
                   <Typography variant="h5" component="div">
-                    {project.name}
+                    {truncateSummary(project.name)}
                   </Typography>
                 </CardContent>
               </MUCard>

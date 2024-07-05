@@ -16,6 +16,7 @@ import {
   TablePagination,
   Box,
   IconButton, // Import IconButton
+  Container,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
@@ -67,7 +68,7 @@ const IssueListPage = () => {
         ...(!isEmpty(_search) && { search: _search }),
         projectId: currentProjectDetails._id,
         ...(!isEmpty(_status) && { status: _status }),
-        isBacklogs: true
+        isBacklogs: true,
       })
     ).catch((error) => {
       console.log("error");
@@ -153,7 +154,7 @@ const IssueListPage = () => {
   }, [issueList]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", mt: 5 }}>
+    <Container maxWidth="false" sx={{ mt: 2 }}>
       <Box
         sx={{ display: "flex", justifyContent: "space-between", mb: 2, px: 1 }}
       >
@@ -312,7 +313,7 @@ const IssueListPage = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </TableContainer>
-    </Box>
+    </Container>
   );
 };
 

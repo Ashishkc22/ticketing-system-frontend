@@ -88,12 +88,14 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <Box
+    <Grid
+    container
       display="flex"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
-      className="login-background"
+      // height="100%"
+      height={window.innerHeight}
+      // className="login-background"
       sx={{
         background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
         padding: 3,
@@ -220,6 +222,6 @@ export default function LoginPage() {
           </Grid>
         </form>
       </Paper>
-    </Box>
+    </Grid>
   );
 }

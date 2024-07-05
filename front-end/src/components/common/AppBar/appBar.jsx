@@ -20,6 +20,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useSelector, useDispatch } from "react-redux";
 import authUtil from "../../../utils/auth.util";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
@@ -66,7 +67,10 @@ export default function AppHeader() {
       <AppBar  position="static">
         <Toolbar className="tool-bar" >
           <Box>
-            {pages.map((page) => (
+            <IconButton>
+              <ArrowBackIcon onClick={() => nav(-1)}/>
+            </IconButton>
+            {/* {pages.map((page) => (
               <NavLink
                 key={page.name}
                 to={page.link}
@@ -88,7 +92,7 @@ export default function AppHeader() {
                   {page.name}
                 </Typography>
               </NavLink>
-            ))}
+            ))} */}
           </Box>
 
           {/* Profile Menu */}

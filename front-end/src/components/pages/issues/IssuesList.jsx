@@ -19,6 +19,7 @@ import {
   Button,
   Modal,
   Grid,
+  Container,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
@@ -183,7 +184,8 @@ const IssueListPage = () => {
   }, [issueList]);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", mt: 5 }}>
+    <Container maxWidth="false" sx={{ mt: 2 }}>
+      {/* <Box sx={{ display: "flex", flexDirection: "column", mt: 5 }}> */}
       <Box
         sx={{ display: "flex", justifyContent: "space-between", mb: 2, px: 1 }}
       >
@@ -440,14 +442,20 @@ const IssueListPage = () => {
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         sx={{
-          '& .MuiDialog-paper': {
-            width: '30%', // Custom width
-            maxWidth: 'none', // Remove the default maxWidth restriction
+          "& .MuiDialog-paper": {
+            width: "30%", // Custom width
+            maxWidth: "none", // Remove the default maxWidth restriction
           },
         }}
       >
         <Grid container>
-          <Grid item lg={12} display="flex" justifyContent="center" sx={{ mt:2 }}>
+          <Grid
+            item
+            lg={12}
+            display="flex"
+            justifyContent="center"
+            sx={{ mt: 2 }}
+          >
             <ErrorOutlineIcon sx={{ fontSize: "67px", color: "red" }} />
           </Grid>
           <Grid item lg={12} padding={0}>
@@ -478,7 +486,8 @@ const IssueListPage = () => {
           </Grid>
         </Grid>
       </Dialog>
-    </Box>
+      {/* </Box> */}
+    </Container>
   );
 };
 

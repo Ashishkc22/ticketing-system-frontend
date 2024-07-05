@@ -11,28 +11,43 @@ import { useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 import CreateIssue from "../issues/addEditIssue";
 import { useState } from "react";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function ProjectDetails() {
   const projectDetails = useSelector(
     (state) => state.projects?.projectDetails?.selected
   );
-
-  const [isNewIssueModalOpen, setNewIssueModalState] = useState(false)
+  const truncateSummary = (summary) => {
+    const maxLength = 40; // Adjust the maximum length as needed
+    if (summary.length > maxLength) {
+      return summary.substring(0, maxLength) + "...";
+    }
+    return summary;
+  };
+  const [isNewIssueModalOpen, setNewIssueModalState] = useState(false);
 
   return (
     <Card sx={{ m: 3 }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={9}>
-            <Typography variant="h3" component="div">
-              {projectDetails.name}
-            </Typography>
-            <Typography gutterBottom variant="body1" component="div">
-              {projectDetails.shortDescription}
-            </Typography>
+            <Tooltip title={projectDetails.name} enterDelay={2000}>
+              <Typography variant="h3" component="div">
+                {truncateSummary(projectDetails.name)}
+              </Typography>
+            </Tooltip>
+            <Tooltip title={projectDetails.shortDescription} enterDelay={2000}>
+              <Typography gutterBottom variant="body1" component="div">
+                {truncateSummary(projectDetails.shortDescription)}
+              </Typography>
+            </Tooltip>
           </Grid>
           <Grid item xs={3}>
-            <Button variant="outlined" startIcon={<AddIcon />} onClick={()=> setNewIssueModalState(true)}>
+            <Button
+              variant="outlined"
+              startIcon={<AddIcon />}
+              onClick={() => setNewIssueModalState(true)}
+            >
               Create Issue
             </Button>
           </Grid>
@@ -60,8 +75,11 @@ export default function ProjectDetails() {
           </Grid>
         </Grid>
       </CardContent>
-      <Modal open={isNewIssueModalOpen} onClose={()=> setNewIssueModalState(false)}>
-       <CreateIssue closeModal={() => setNewIssueModalState(false)}/>
+      <Modal
+        open={isNewIssueModalOpen}
+        onClose={() => setNewIssueModalState(false)}
+      >
+        <CreateIssue closeModal={() => setNewIssueModalState(false)} />
       </Modal>
     </Card>
   );

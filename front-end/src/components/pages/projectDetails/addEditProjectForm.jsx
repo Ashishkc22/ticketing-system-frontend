@@ -1,19 +1,20 @@
-import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-
-import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Divider,
+  Paper,
+} from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { isEmpty } from "lodash";
 import { thunks } from "../../../store/projects";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { useNavigate } from "react-router-dom";
-import { useSearchParams, useParams } from "react-router-dom";
-
+import { useNavigate, useSearchParams } from "react-router-dom";
 import dayjs from "dayjs";
 
 export default function ProjectForm() {
@@ -27,7 +28,6 @@ export default function ProjectForm() {
 
   const [searchParams] = useSearchParams();
   const projectId = searchParams.get("id");
-  console.log("projectId ====>", projectId);
   const nav = useNavigate();
   const projectsDetails = useSelector(
     (state) => state?.projects?.projectDetails?.selected
@@ -35,6 +35,7 @@ export default function ProjectForm() {
 
   const [formErrors, setFormErros] = useState({});
   const dispatch = useDispatch();
+
   const handleChange = (e) => {
     if (isEmpty(e.target.value)) {
       setFormErros({
@@ -55,8 +56,6 @@ export default function ProjectForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!isLoading) {
-    // Handle form submission, you can perform validation or submit the data as needed
     try {
       const result = await dispatch(
         thunks["projects/addEditProject"]({
@@ -74,19 +73,16 @@ export default function ProjectForm() {
           variant: "success",
           autoHideDuration: 1000,
         });
-        // setTimeout(closeDialog, 2000);
       }
       nav("/");
-      // Reset form fields after submission if needed
     } catch (error) {
       console.log("error >>>> got it");
     }
-    // }
   };
+
   useEffect(() => {
     const _projectId = searchParams.get("id");
     if (!isEmpty(projectsDetails) && _projectId) {
-      console.log("got Data", projectsDetails);
       setFormData({
         ...formData,
         name: projectsDetails.name,
@@ -97,57 +93,122 @@ export default function ProjectForm() {
       });
     }
   }, [projectsDetails]);
+
   useEffect(() => {
     if (projectId) {
       dispatch(thunks["projects/getProjectById"]({ id: projectId }));
     }
   }, []);
+
   return (
-    <Box width={500}>
-      <Typography gutterBottom variant="h5" component="div">
-        Project Details
+    <div
+      style={{
+        // maxWidth: 600,
+        // mx: "auto",
+        mt: 5,
+        p: 4,
+        // borderRadius: 3,
+        // boxShadow:2,
+        // backgroundColor: "#f0f4f7",
+      }}
+    >
+      {/* // <Paper
+    //   elevation={10}
+    //   sx={{
+    //     maxWidth: 600,
+    //     mx: "auto",
+    //     mt: 5,
+    //     p: 4,
+    //     borderRadius: 3,
+    //     boxShadow:2,
+    //     backgroundColor: "#f0f4f7",
+    //   }}
+    // > */}
+      <Typography
+        gutterBottom
+        variant="h5"
+        component="div"
+        // align="center"
+        color="primary"
+        sx={{ mb: 2 }}
+      >
+        {projectId ? "Edit Project" : "Create Project"}
       </Typography>
+      {/* <Divider sx={{ mb: 3 }} /> */}
       <form onSubmit={handleSubmit}>
-        <TextField
-          disabled={projectId}
-          label="Name"
-          variant="outlined"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          helperText={formErrors?.name}
-          error={!isEmpty(formErrors?.name)}
-        />
-        <TextField
-          label="Description"
-          variant="outlined"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-          helperText={formErrors?.description}
-          error={!isEmpty(formErrors?.description)}
-        />
-        <TextField
-          label="Short Description"
-          variant="outlined"
-          name="shortDescription"
-          value={formData.shortDescription}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          multiline
-          rows={4}
-          helperText={formErrors?.description}
-          error={!isEmpty(formErrors?.description)}
-        />
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="left"
+            alignContent="center"
+          >
+            <TextField
+              disabled={projectId}
+              label="Project Name"
+              variant="outlined"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              helperText={formErrors?.name}
+              error={!isEmpty(formErrors?.name)}
+              sx={{ maxWidth: "50%" }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="left"
+            alignContent="center"
+          >
+            <TextField
+              label="Description"
+              variant="outlined"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              multiline
+              rows={4}
+              helperText={formErrors?.description}
+              error={!isEmpty(formErrors?.description)}
+              sx={{ maxWidth: "50%" }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="left"
+            alignContent="center"
+          >
+            <TextField
+              label="Short Description"
+              variant="outlined"
+              name="shortDescription"
+              value={formData.shortDescription}
+              onChange={handleChange}
+              fullWidth
+              margin="normal"
+              multiline
+              rows={2}
+              helperText={formErrors?.shortDescription}
+              error={!isEmpty(formErrors?.shortDescription)}
+              sx={{ maxWidth: "50%" }}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="left"
+            alignContent="center"
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Start Date"
@@ -157,17 +218,23 @@ export default function ProjectForm() {
                     ? dayjs(formData?.startDate)
                     : null
                 }
-                name="startDate"
-                onChange={(data) => {
+                onChange={(date) => {
                   setFormData({
                     ...formData,
-                    startDate: new Date(data).toISOString(),
+                    startDate: date ? date.toISOString() : "",
                   });
                 }}
+                renderInput={(params) => <TextField fullWidth {...params} />}
               />
             </LocalizationProvider>
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            display="flex"
+            justifyContent="left"
+            alignContent="center"
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="End Date"
@@ -176,46 +243,41 @@ export default function ProjectForm() {
                     ? dayjs(formData?.endDate)
                     : null
                 }
-                name="endDate"
-                onChange={(data) => {
+                onChange={(date) => {
                   setFormData({
                     ...formData,
-                    endDate: new Date(data).toISOString(),
+                    endDate: date ? date.toISOString() : "",
                   });
                 }}
+                renderInput={(params) => <TextField fullWidth {...params} />}
+                sx={{ alignContent: "left" }}
               />
             </LocalizationProvider>
           </Grid>
+          <Grid item  xs={12} display="flex"
+            justifyContent="left"
+            alignContent="center">
+          <Button
+          sx={{ mt: 3,maxWidth:"30%" }}
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          disabled={
+            isEmpty(formData?.description) ||
+            isEmpty(formData?.name) ||
+            isEmpty(formData?.shortDescription) ||
+            isEmpty(formData?.startDate) ||
+            isEmpty(formData?.endDate)
+          }
+        >
+          {projectId ? "Update Project" : "Create Project"}
+        </Button>
+          </Grid>
         </Grid>
-        <br />
 
-        {projectId ? (
-          <Button
-            sx={{ my: 1 }}
-            type="submit"
-            variant="outlined"
-            color="primary"
-          >
-            Submit
-          </Button>
-        ) : (
-          <Button
-            sx={{ my: 1 }}
-            type="submit"
-            variant="outlined"
-            color="primary"
-            disabled={
-              isEmpty(formData?.description) ||
-              isEmpty(formData?.name) ||
-              isEmpty(formData?.shortDescription) ||
-              isEmpty(formData?.startDate) ||
-              isEmpty(formData?.endDate)
-            }
-          >
-            Submit
-          </Button>
-        )}
       </form>
-    </Box>
+    </div>
+    // </Paper>
   );
 }

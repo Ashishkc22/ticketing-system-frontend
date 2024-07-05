@@ -21,12 +21,13 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import Toolbar from "@mui/material/Toolbar";
 import authUtil from "../../../utils/auth.util";
 import { isEmpty } from "lodash";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./menu.css";
 import { deepOrange } from "@mui/material/colors";
-import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
-import BugReportOutlinedIcon from '@mui/icons-material/BugReportOutlined';
-import ReorderOutlinedIcon from '@mui/icons-material/ReorderOutlined';
+import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
+import BugReportOutlinedIcon from "@mui/icons-material/BugReportOutlined";
+import ReorderOutlinedIcon from "@mui/icons-material/ReorderOutlined";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -112,7 +113,13 @@ const App = () => {
       },
     ],
   };
-  console.log("locationlocation", location);
+  const truncateSummary = (summary) => {
+    const maxLength = 30; // Adjust the maximum length as needed
+    if (summary.length > maxLength) {
+      return summary.substring(0, maxLength) + "...";
+    }
+    return summary;
+  };
 
   const [activeList, setActiveList] = useState([]);
   // const classes = styled();
@@ -139,10 +146,10 @@ const App = () => {
     <Drawer
       open
       sx={{
-        width: 230,
+        width: 200,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: 230,
+          width: 240,
           boxSizing: "border-box",
         },
       }}
@@ -171,15 +178,15 @@ const App = () => {
         >
           <Grid container flex flexDirection="column">
             <Grid item md={12}>
-              <Typography variant="h5">
-                {selectedProjectsDetails?.name}
-              </Typography>
+                <Typography variant="h5">
+                  {truncateSummary(selectedProjectsDetails?.name)}
+                </Typography>
             </Grid>
             {selectedProjectsDetails?.shortDescription && (
               <Grid item md={12}>
                 <Typography fontSize={15}>
-                  {selectedProjectsDetails?.shortDescription}
-                </Typography>
+                    {truncateSummary(selectedProjectsDetails?.shortDescription)}
+                  </Typography>
               </Grid>
             )}
           </Grid>
@@ -220,21 +227,15 @@ const App = () => {
           }}
         >
           <ListItemIcon
-            sx={
-              {
-                // display: "flex",
-                // justifyContent: "flex-start",
-                // alignItems: "center",
-              }
-            }
+            sx={{
+              minWidth: "30px",
+            }}
           >
-            <KeyboardArrowLeftIcon fontSize="medium" />
+            <ArrowBackIcon fontSize="medium" />
           </ListItemIcon>
-          <Grid container>
-            <Grid item md={12}>
-              <Typography variant="h5">Projects</Typography>
-            </Grid>
-          </Grid>
+          <Typography sx={{ fontSize: "20px", fontWeight: "500" }}>
+            Projects
+          </Typography>
         </ListItem>
         <ListItem
           button
@@ -246,14 +247,16 @@ const App = () => {
             nav("/auth/login");
           }}
         >
-          <ListItemIcon>
-            <LogoutIcon fontSize="small" />
+          <ListItemIcon
+            sx={{
+              minWidth: "30px",
+            }}
+          >
+            <LogoutIcon fontSize="medium" />
           </ListItemIcon>
-          <Grid container>
-            <Grid item md={12}>
-              <Typography variant="h5">Logout</Typography>
-            </Grid>
-          </Grid>
+          <Typography sx={{ fontSize: "20px", fontWeight: "500" }}>
+            Logout
+          </Typography>
         </ListItem>
       </List>
     </Drawer>
