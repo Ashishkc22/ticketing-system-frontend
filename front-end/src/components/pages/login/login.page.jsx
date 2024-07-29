@@ -97,7 +97,7 @@ export default function LoginPage() {
       height={window.innerHeight}
       // className="login-background"
       sx={{
-        background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+        background: "aliceblue",
         padding: 3,
       }}
     >
@@ -180,10 +180,10 @@ export default function LoginPage() {
                 className="gradient-button"
                 sx={{
                   width: "100%",
-                  background: "linear-gradient(to right, #00b09b, #96c93d)",
+                  background: "linear-gradient(to right, rgb(106 221 178 / 53%), rgb(140 91 216 / 50%))",
                   color: "#fff",
                   "&:hover": {
-                    background: "linear-gradient(to right, #00a08b, #85b92c)",
+                    background: "linear-gradient(to right, rgb(91 193 155 / 67%), rgb(157 122 212 / 66%))",
                   },
                   "& .css-1yt7yx7-MuiLoadingButton-loadingIndicator": {
                     color: "#fff",
@@ -213,7 +213,7 @@ export default function LoginPage() {
               </NavLink>
             </Grid>
             <Grid item>
-              <NavLink to="/auth/forgot-password" className="links" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
+              <NavLink to="/auth/password-reset" className="links" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
                 <Typography gutterBottom sx={{ fontWeight: 100 }}>
                   Forgot password?
                 </Typography>

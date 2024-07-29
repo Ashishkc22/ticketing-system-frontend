@@ -22,10 +22,11 @@ const IssueStack = ({ title, issues, onDrop,isLoading = false }) => {
         position: 'relative',  // Ensure the backdrop positions correctly
         p: 1,
         borderColor: isOver ? "primary.main" : "grey.500",
-        background: "whitesmoke",
+        background: "rgba(81, 169, 227, 0.2)",
+        borderRadius: "21px"
       }}
     >
-      <Typography variant="h6" sx={{ mb: 2 }}>
+      <Typography variant="h6" sx={{ mb: 2,ml:1 }}>
         {title.name}
       </Typography>
       <Box

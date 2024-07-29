@@ -66,6 +66,9 @@ export default function Home() {
   };
 
   const truncateSummary = (summary) => {
+    if(!summary){
+      return ""
+    }
     const maxLength = 40; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
@@ -99,7 +102,7 @@ export default function Home() {
               {selectMode ? (
                 <Typography variant="body1">Cancel</Typography>
               ) : (
-                <Typography variant="body1">Select</Typography>
+                <Typography variant="body1" fontWeight={800}>Select</Typography>
               )}
             </IconButton>
           </Grid>
@@ -167,7 +170,7 @@ export default function Home() {
                   } else {
                     storage.setStorageData(project, "selectedProject");
                     dispatch(projectActions.setProject(project));
-                    nav("project");
+                    nav("project/projectDetails");
                   }
                 }}
               >

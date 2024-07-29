@@ -42,6 +42,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import "./Issue.css"
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 let typingTimer;
@@ -171,6 +172,9 @@ const IssueListPage = () => {
   };
 
   const truncateSummary = (summary) => {
+    if (!summary) {
+      return "";
+    }
     const maxLength = 50; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
@@ -237,16 +241,25 @@ const IssueListPage = () => {
         </Button>
         <Modal
           open={isNewIssueModalOpen}
-          onClose={() => setNewIssueModalState(false)}
+          onClose={() => {
+            setEditIssueData({});
+            setNewIssueModalState(false);
+          }}
         >
           <CreateIssue
-            closeModal={() => setNewIssueModalState(false)}
+            closeModal={() => {
+              fetchIssueList({
+                search: statusParams.get("search"),
+                status: statusParams.get("status"),
+              });
+              setNewIssueModalState(false);
+            }}
             issueData={editIssueData}
           />
         </Modal>
       </div>
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer component={Paper} sx={{ borderRadius: "21px"}}>
+        <Table sx={{ background: "rgba(81, 169, 227, 0.2)" }}>
           <TableHead>
             <TableRow sx={{ px: 10 }}>
               <TableCell
@@ -362,6 +375,7 @@ const IssueListPage = () => {
                       setEditIssueData(issue);
                       setNewIssueModalState(true);
                     }}
+                    className="edit-button-animation"
                   >
                     <EditIcon sx={{ fontSize: 20 }} />
                   </IconButton>
@@ -372,6 +386,7 @@ const IssueListPage = () => {
                       e.preventDefault();
                       e.stopPropagation();
                     }}
+                    className="edit-button-animation"
                   >
                     <DeleteIcon
                       sx={{ fontSize: 20 }}
@@ -436,29 +451,34 @@ const IssueListPage = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{ background: "rgba(81, 169, 227, 0.2)" }}
         />
       </TableContainer>
       <Dialog
         open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
+        onClose={() => {
+          setIsDialogOpen(false);
+        }}
         sx={{
           "& .MuiDialog-paper": {
             width: "30%", // Custom width
             maxWidth: "none", // Remove the default maxWidth restriction
+            background: "floralwhite",
+            borderRadius: "21px",
           },
         }}
       >
         <Grid container>
           <Grid
             item
-            lg={12}
+            xs={12}
             display="flex"
             justifyContent="center"
             sx={{ mt: 2 }}
           >
             <ErrorOutlineIcon sx={{ fontSize: "67px", color: "red" }} />
           </Grid>
-          <Grid item lg={12} padding={0}>
+          <Grid item xs={12} padding={0}>
             <DialogTitle>Delete Confirmation</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
@@ -466,7 +486,7 @@ const IssueListPage = () => {
               </DialogContentText>
             </DialogContent>
           </Grid>
-          <Grid item lg={12} padding={0} display="flex" justifyContent="right">
+          <Grid item xs={12} padding={0} display="flex" justifyContent="right">
             <DialogActions>
               <Button onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               <Button

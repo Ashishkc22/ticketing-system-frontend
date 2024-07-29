@@ -1,3 +1,9 @@
 .selected-item {
-    background: rgb(162 195 245) !important;
+    /* background: #fbe5c8 !important; */
+    /* color: #0000ffd6  !important; */
+    border-right: 4px solid #b6a3e5 !important;
+    /* border-radius: 10px !important; */
+}
+.selected-item:hover {
+    background-color: #b6a3e5a1 !important;
 }

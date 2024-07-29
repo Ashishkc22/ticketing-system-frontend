@@ -74,15 +74,14 @@ export default function AddEditIssue({ closeModal, issueData }) {
       delete formData._id;
       dispatch(thunks["projects/addEditIssue"]({ ...(inEditMode && { issueId: issueData._id} ),data: formData }))
         .then(() => {
-          if (toClose) {
-            closeModal();
-          } else {
-            setFormDetails({
+          setFormDetails({
               issueType: "",
               summary: "",
               dueDate: "",
               description: "",
             });
+          if (toClose) {
+            closeModal();
           }
         })
         .catch((err) => {
@@ -116,6 +115,17 @@ export default function AddEditIssue({ closeModal, issueData }) {
     }
   }, [issueData]);
 
+  const truncateSummary = (summary) => {
+    if(!summary){
+      return ""
+    }
+    const maxLength = 40; // Adjust the maximum length as needed
+    if (summary.length > maxLength) {
+      return summary.substring(0, maxLength) + "...";
+    }
+    return summary;
+  };
+
   useEffect(() => {
     setFormDetails({
       ...formDetails,
@@ -131,8 +141,7 @@ export default function AddEditIssue({ closeModal, issueData }) {
         left: "50%",
         transform: "translate(-50%, -50%)",
         width: 700,
-        bgcolor: "background.paper",
-        borderRadius: "20px",
+        borderRadius: "21px",
         boxShadow: 24,
         p: 4,
       }}
@@ -152,7 +161,7 @@ export default function AddEditIssue({ closeModal, issueData }) {
               >
                 {projectList.map((project) => (
                   <MenuItem key={project._id} value={project._id}>
-                    {project.name}
+                    {truncateSummary(project.name)}
                   </MenuItem>
                 ))}
               </Select>

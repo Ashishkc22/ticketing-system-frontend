@@ -33,7 +33,23 @@ async function registration(payload) {
   });
 }
 
+async function forgotPassword(payload){
+  return axiosUtil.post({
+    path: "api/v1/auth/forgot-password",
+    body: payload,
+  })
+}
+
+async function resetPassword(payload){
+  return axiosUtil.post({
+    path: "api/v1/auth/reset-password",
+    body: payload,
+  })
+}
+
 export default {
   login,
   registration,
+  forgotPassword,
+  resetPassword
 };

@@ -1,0 +1,6 @@
+.edit-button-animation {
+    transition: transform 1s !important;
+}
+.edit-button-animation:hover {
+    transform: scale(1.3) !important;
+}

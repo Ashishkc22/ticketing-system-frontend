@@ -141,6 +141,9 @@ const IssueListPage = () => {
   };
 
   const truncateSummary = (summary) => {
+    if(!summary){
+      return ""
+    }
     const maxLength = 50; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
@@ -156,7 +159,7 @@ const IssueListPage = () => {
   return (
     <Container maxWidth="false" sx={{ mt: 2 }}>
       <Box
-        sx={{ display: "flex", justifyContent: "space-between", mb: 2, px: 1 }}
+        sx={{ display: "flex", justifyContent: "space-between", mb: 2, px: 1, }}
       >
         <TextField
           label="Search"
@@ -174,8 +177,8 @@ const IssueListPage = () => {
           sx={{ width: "40%" }}
         />
       </Box>
-      <TableContainer component={Paper}>
-        <Table>
+      <TableContainer component={Paper} sx={{ borderRadius: "21px"}}>
+        <Table sx={{  background: "rgba(81, 169, 227, 0.2)",}}>
           <TableHead>
             <TableRow>
               <TableCell
@@ -311,6 +314,7 @@ const IssueListPage = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{ background: "rgba(81, 169, 227, 0.2)",}}
         />
       </TableContainer>
     </Container>

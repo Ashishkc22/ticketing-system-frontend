@@ -1,0 +1,22 @@
+.login-background {
+  /* background-color: rgb(33, 33, 33); */
+  /* filter: blur(1px); */
+  /* background: linear-gradient(333deg, #001feb, #ffffff); */
+}
+.MuiButton-text {
+  text-transform: unset !important;
+}
+.links{
+  text-decoration: none;
+}
+.links > p{
+  text-decoration: none;
+  color: #6c6cf3 !important;
+}
+.links :hover {
+  text-decoration: none;
+  color: blue !important;
+}
+/* .text-white-color {
+  color: white;
+} */

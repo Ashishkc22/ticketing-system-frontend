@@ -51,7 +51,7 @@ export function Home() {
     }
   }, []);
   return (
-    <Box>
+    <Grid>
       {/* <AppBar />
       <Menu /> */}
 
@@ -65,7 +65,7 @@ export function Home() {
           <Grid container sx={{ flexDirection: "row-reverse" }}>
             <Grid item>
               <IconButton onClick={() => setIsMenuOpen(true)}>
-                <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                <Avatar sx={{ bgcolor: "#6addb2" }}>
                   {isEmpty(loginedUserDetails?.email) ? (
                     loginedUserDetails?.email
                       ?.substring(0, 2)
@@ -114,6 +114,6 @@ export function Home() {
           <Outlet />
         </Container>
       </Box>
-    </Box>
+    </Grid>
   );
 }

@@ -128,7 +128,7 @@ export default function AppHeader() {
             </Menu>
             <IconButton onClick={() => setIsMenuOpen(true)}>
               <Avatar
-                sx={{ bgcolor: deepOrange[500] }}
+                sx={{ bgcolor: "#6addb2" }}
                 onClick={() => console.log("hello")}
               >
                 {

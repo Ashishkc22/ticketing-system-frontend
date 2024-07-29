@@ -18,6 +18,9 @@ export default function ProjectDetails() {
     (state) => state.projects?.projectDetails?.selected
   );
   const truncateSummary = (summary) => {
+    if(!summary){
+      return ""
+    }
     const maxLength = 40; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
@@ -27,7 +30,7 @@ export default function ProjectDetails() {
   const [isNewIssueModalOpen, setNewIssueModalState] = useState(false);
 
   return (
-    <Card sx={{ m: 3 }}>
+    <Card sx={{ m: 3,background:"rgba(81, 169, 227, 0.2)",borderRadius:"21px" }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={9}>

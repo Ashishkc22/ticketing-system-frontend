@@ -60,13 +60,33 @@ const Item = ({
       }}
       className={{
         "selected-item": selected,
+        // "& .css-pavq5j-MuiButtonBase-root-MuiListItem-root": {
+        //   "&:hover":{
+        //   backgroundColor: selected ? "#0000e236": "#f5f5ed",
+        //   }
+        // },
+        // "&:hover": {
+        //   transform: "scale(1.05)",
+        //   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
+        // },
       }}
-      sx={{ display: "flex", ...style }}
+      sx={{ display: "flex", ...style,...(selected && {background: "#b6a3e5a1"}) }}
     >
-      <ListItemIcon button sx={{ display: "flex", justifyContent: "center" }}>
+      <ListItemIcon
+        button
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          // ...(selected && { color: "#0000ffd6"}),
+        }}
+      >
         {icon && icon()}
       </ListItemIcon>
-      {text && <ListItemText primary={text} />}
+      {text && (
+        <ListItemText>
+          <Typography sx={{ fontWeight: 600 }}>{text}</Typography>
+        </ListItemText>
+      )}
     </ListItem>
   );
 };
@@ -114,7 +134,10 @@ const App = () => {
     ],
   };
   const truncateSummary = (summary) => {
-    const maxLength = 30; // Adjust the maximum length as needed
+    if (!summary) {
+      return "";
+    }
+    const maxLength = 10; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
     }
@@ -146,11 +169,12 @@ const App = () => {
     <Drawer
       open
       sx={{
-        width: 200,
+        width: 140,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: 240,
+          width: 180,
           boxSizing: "border-box",
+          background: "rgb(180 219 243 / 20%)",
         },
       }}
       variant="persistent"
@@ -158,35 +182,50 @@ const App = () => {
     >
       {/* <Toolbar > */}
       <Grid container sx={{ p: 1 }}>
-        <Grid Item>
-          <Avatar sx={{ bgcolor: deepOrange[500] }}>
+        <Grid item xs={12}>
+          <Avatar sx={{ bgcolor: "#6addb2" }}>
             {userDetails?.email?.substring(0, 2)?.toLocaleUpperCase()}
           </Avatar>
         </Grid>
-        <Grid Item alignContent="center" sx={{ pl: 1 }}>
-          {userDetails?.email?.split("@")?.[0]}
+        <Grid item xs={12} alignContent="center" sx={{ my: 1 }}>
+          <Typography fontWeight={500}>
+            {userDetails?.email?.split("@")?.[0]}
+          </Typography>
+        </Grid>
+        <Grid item alignContent="center">
+          <Typography fontSize="10px" fontWeight="20px">
+            ID :
+          </Typography>
+        </Grid>
+        <Grid item display="flex" alignItems="center">
+          <Typography fontSize="10px" fontWeight={500}>
+            {userDetails.id}
+          </Typography>
         </Grid>
       </Grid>
       <Divider />
       <List sx={{ my: 1 }}>
         <ListItem
           button
-          className={clsx(location.pathname === "/project" && "selected-item")}
+          className={clsx(
+            location.pathname === "/project/projectDetails" && "selected-item"
+          )}
+          sx={{ ...(location.pathname === "/project/projectDetails" && {background: "#0000e236"}) }}
           onClick={() => {
-            nav("/project");
+            nav("/project/projectDetails");
           }}
         >
           <Grid container flex flexDirection="column">
             <Grid item md={12}>
-                <Typography variant="h5">
-                  {truncateSummary(selectedProjectsDetails?.name)}
-                </Typography>
+              <Typography variant="h5">
+                {truncateSummary(selectedProjectsDetails?.name)}
+              </Typography>
             </Grid>
             {selectedProjectsDetails?.shortDescription && (
               <Grid item md={12}>
                 <Typography fontSize={15}>
-                    {truncateSummary(selectedProjectsDetails?.shortDescription)}
-                  </Typography>
+                  {truncateSummary(selectedProjectsDetails?.shortDescription)}
+                </Typography>
               </Grid>
             )}
           </Grid>
@@ -195,6 +234,9 @@ const App = () => {
               display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
+              // ...(location.pathname === "/project/projectDetails" && {
+              //   color: "blue",
+              // }),
             }}
           >
             <ArrowForwardIcon fontSize="medium" />
@@ -233,7 +275,7 @@ const App = () => {
           >
             <ArrowBackIcon fontSize="medium" />
           </ListItemIcon>
-          <Typography sx={{ fontSize: "20px", fontWeight: "500" }}>
+          <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Projects
           </Typography>
         </ListItem>
@@ -254,7 +296,7 @@ const App = () => {
           >
             <LogoutIcon fontSize="medium" />
           </ListItemIcon>
-          <Typography sx={{ fontSize: "20px", fontWeight: "500" }}>
+          <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Logout
           </Typography>
         </ListItem>
