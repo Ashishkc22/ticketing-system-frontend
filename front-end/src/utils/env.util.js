@@ -4,7 +4,10 @@ const apiInfo = {
     url: "localhost",
     port: 2000,
   },
-  pro: {},
+  pro: {
+    protocol: "https",
+    url: "ticketing-system-backend-70zx.onrender.com"
+  },
 };
 
 function getSystemDomain() {
@@ -34,6 +37,9 @@ function getDomain() {
 
 function getApiUrl({ path = false }) {
   let url = `${protocol()}://${getDomain()}:${getPort()}`;
+  if(!isLocalEnvironment()){
+    url = `${protocol()}://${getDomain()}`;
+  }
   if (path) {
     url += `/${path}`;
   }
