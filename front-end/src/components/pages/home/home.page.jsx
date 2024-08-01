@@ -11,7 +11,7 @@ import MUCard from "@mui/material/Card";
 import { CardActionArea, IconButton, Badge } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CardContent from "@mui/material/CardContent";
-import CheckIcon from '@mui/icons-material/Check';
+import CheckIcon from "@mui/icons-material/Check";
 import storage from "../../../utils/storage.util";
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
   );
   const dispatch = useDispatch();
   const [selectMode, setSelectMode] = useState(false);
-  const [selectedProjects, setSelectedProjects] = useState([]);
+  const [selectedProjects, setSelectedProjects] = useState("");
 
   function closeDialog() {
     setProjectFormState(false);
@@ -35,9 +35,13 @@ export default function Home() {
     dispatch(thunks["projects/getProjects"]());
   }, []);
 
-  const deleteAction = (id) => {
-    dispatch(thunks["projects/deleteProjectByID"]({ id }));
-    dispatch(thunks["projects/getProjects"]());
+  const deleteAction = () => {
+    if (selectedProjects) {
+      dispatch(thunks["projects/deleteProjectByID"]({ id: selectedProjects }));
+      dispatch(thunks["projects/getProjects"]());
+      setSelectedProjects("");
+      setSelectMode(false);
+    }
   };
 
   function stringToGradient(str) {
@@ -45,29 +49,29 @@ export default function Home() {
     for (let i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
-    let r = (hash & 0xFF0000) >> 16;
-    let g = (hash & 0x00FF00) >> 8;
-    let b = hash & 0x0000FF;
+    let r = (hash & 0xff0000) >> 16;
+    let g = (hash & 0x00ff00) >> 8;
+    let b = hash & 0x0000ff;
     let gradient = `linear-gradient(135deg, rgb(${r}, ${g}, ${b}), rgb(${g}, ${b}, ${r}))`;
     return gradient;
   }
 
   const toggleSelectMode = () => {
     setSelectMode(!selectMode);
-    setSelectedProjects([]); // Reset selected projects when exiting select mode
+    setSelectedProjects(""); // Reset selected projects when exiting select mode
   };
 
   const toggleSelectProject = (projectId) => {
-    if (selectedProjects.includes(projectId)) {
-      setSelectedProjects(selectedProjects.filter((id) => id !== projectId));
-    } else {
-      setSelectedProjects([...selectedProjects, projectId]);
+    if (selectMode && selectedProjects == projectId) {
+      setSelectedProjects("");
+    } else if(selectMode) {
+      setSelectedProjects(projectId);
     }
   };
 
   const truncateSummary = (summary) => {
-    if(!summary){
-      return ""
+    if (!summary) {
+      return "";
     }
     const maxLength = 40; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
@@ -97,14 +101,27 @@ export default function Home() {
             </Typography>
           </Grid>
           {/* create project button */}
-          <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Grid
+            item
+            xs={6}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
             <IconButton onClick={toggleSelectMode}>
               {selectMode ? (
                 <Typography variant="body1">Cancel</Typography>
               ) : (
-                <Typography variant="body1" fontWeight={800}>Select</Typography>
+                <Typography variant="body1" fontWeight={800}>
+                  Select
+                </Typography>
               )}
             </IconButton>
+            {selectMode && (
+              <IconButton onClick={deleteAction}>
+                <Typography variant="body1" fontWeight={800} color="red">
+                  Delete
+                </Typography>
+              </IconButton>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -156,7 +173,10 @@ export default function Home() {
                   color: "#fff",
                   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                   transition: "transform 0.3s, box-shadow 0.3s",
-                  border: selectMode && isSelected(project._id) ? "2px solid blue" : "none",
+                  border:
+                    selectMode && isSelected(project._id)
+                      ? "2px solid blue"
+                      : "none",
                   position: "relative",
                   "&:hover": {
                     transform: "scale(1.05)",
@@ -165,7 +185,6 @@ export default function Home() {
                 }}
                 onClick={() => {
                   if (selectMode) {
-                    console.log('project',project);
                     toggleSelectProject(project._id);
                   } else {
                     storage.setStorageData(project, "selectedProject");
@@ -177,8 +196,8 @@ export default function Home() {
                 {selectMode && isSelected(project._id) && (
                   <Badge
                     color="primary"
-                    badgeContent={<CheckIcon sx={{ fontSize: "15px" }}/>}
-                    sx={{ position: "absolute", top: 12, right: 20}}
+                    badgeContent={<CheckIcon sx={{ fontSize: "15px" }} />}
+                    sx={{ position: "absolute", top: 12, right: 20 }}
                   />
                 )}
                 <CardContent

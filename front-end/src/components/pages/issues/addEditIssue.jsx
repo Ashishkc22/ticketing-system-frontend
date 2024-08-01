@@ -70,7 +70,7 @@ export default function AddEditIssue({ closeModal, issueData }) {
 
   const handleFormSubmission = (toClose) => {
     if (validateForm()) {
-      const formData = { ...formDetails, projectId: formDetails._id };
+      const formData = { ...formDetails, projectId: formDetails._id || currentProjectDetails._id || currentProjectDetails.id };
       delete formData._id;
       dispatch(thunks["projects/addEditIssue"]({ ...(inEditMode && { issueId: issueData._id} ),data: formData }))
         .then(() => {

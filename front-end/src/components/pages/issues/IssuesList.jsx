@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ClearIcon from "@mui/icons-material/Clear";
-import { thunks } from "../../../store/projects";
+import { thunks,actions } from "../../../store/projects";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { isEmpty } from "lodash";
 import Menu from "@mui/material/Menu";
@@ -106,6 +106,13 @@ const IssueListPage = () => {
       });
     }
   }, [currentProjectDetails]);
+
+  useEffect(() => {
+    return () => {
+      console.log('issue list unmounting');
+      dispatch(actions.resetIssueList());
+    }
+  },[])
 
   useEffect(() => {
     fetchIssueList({ search: searchTerm });

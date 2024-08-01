@@ -68,7 +68,6 @@ export default function ProjectDetails() {
               sx={{
                 fontSize: "15px",
                 fontWeight: "500",
-                "max-width": "400px",
                 overflow: "overlay",
               }}
               component="div"

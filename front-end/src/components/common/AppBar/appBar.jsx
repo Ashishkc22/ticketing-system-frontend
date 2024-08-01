@@ -111,10 +111,10 @@ export default function AppHeader() {
               open={isMenuOpen}
               onClose={() => setIsMenuOpen(false)}
             >
-              <MenuItem value="setting">
+              {/* <MenuItem value="setting">
                 <SettingsIcon sx={{ mx: 1 }} />
                 Settings
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 onClick={() => {
                   dispatch(actions.toggleIsUserLoggedIn());

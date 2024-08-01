@@ -7,7 +7,7 @@ import validation from "../../../utils/validation.util";
 import { Box, Grid, Collapse } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import REGEX from "../../../constants/regex";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -87,9 +87,16 @@ export default function LoginPage() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    setForm({
+      email: "ashishchoudhari224@gmail.com",
+      password: "DemoSystem%889",
+    });
+  }, []);
+
   return (
     <Grid
-    container
+      container
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -138,6 +145,7 @@ export default function LoginPage() {
                   id="standard-adornment-password"
                   type={showPassword ? "text" : "password"}
                   error={errors.password.valid}
+                  value={form.password}
                   onChange={(e) =>
                     setForm({ ...form, password: e.target?.value })
                   }
@@ -180,10 +188,12 @@ export default function LoginPage() {
                 className="gradient-button"
                 sx={{
                   width: "100%",
-                  background: "linear-gradient(to right, rgb(106 221 178 / 53%), rgb(140 91 216 / 50%))",
+                  background:
+                    "linear-gradient(to right, rgb(106 221 178 / 53%), rgb(140 91 216 / 50%))",
                   color: "#fff",
                   "&:hover": {
-                    background: "linear-gradient(to right, rgb(91 193 155 / 67%), rgb(157 122 212 / 66%))",
+                    background:
+                      "linear-gradient(to right, rgb(91 193 155 / 67%), rgb(157 122 212 / 66%))",
                   },
                   "& .css-1yt7yx7-MuiLoadingButton-loadingIndicator": {
                     color: "#fff",
@@ -205,7 +215,10 @@ export default function LoginPage() {
               <NavLink
                 to="/auth/registration"
                 className="links"
-                style={{ textDecoration: "none", color: theme.palette.primary.main }}
+                style={{
+                  textDecoration: "none",
+                  color: theme.palette.primary.main,
+                }}
               >
                 <Typography gutterBottom sx={{ fontWeight: 100 }}>
                   Create account
@@ -213,7 +226,14 @@ export default function LoginPage() {
               </NavLink>
             </Grid>
             <Grid item>
-              <NavLink to="/auth/password-reset" className="links" style={{ textDecoration: "none", color: theme.palette.primary.main }}>
+              <NavLink
+                to="/auth/password-reset"
+                className="links"
+                style={{
+                  textDecoration: "none",
+                  color: theme.palette.primary.main,
+                }}
+              >
                 <Typography gutterBottom sx={{ fontWeight: 100 }}>
                   Forgot password?
                 </Typography>
