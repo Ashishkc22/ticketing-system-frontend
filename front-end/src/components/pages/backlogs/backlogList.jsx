@@ -178,7 +178,7 @@ const IssueListPage = () => {
         />
       </Box>
       <TableContainer component={Paper} sx={{ borderRadius: "21px"}}>
-        <Table sx={{  background: "rgba(81, 169, 227, 0.2)",}}>
+        <Table /*sx={{  background: "rgba(81, 169, 227, 0.2)",}}*/>
           <TableHead>
             <TableRow>
               <TableCell
@@ -314,7 +314,7 @@ const IssueListPage = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{ background: "rgba(81, 169, 227, 0.2)",}}
+          sx={{/* background: "rgba(81, 169, 227, 0.2)",*/}}
         />
       </TableContainer>
     </Container>

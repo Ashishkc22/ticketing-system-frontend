@@ -30,7 +30,7 @@ export default function ProjectDetails() {
   const [isNewIssueModalOpen, setNewIssueModalState] = useState(false);
 
   return (
-    <Card sx={{ m: 3,background:"rgba(81, 169, 227, 0.2)",borderRadius:"21px" }}>
+    <Card sx={{ m: 2,borderRadius:"21px" }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item xs={9}>

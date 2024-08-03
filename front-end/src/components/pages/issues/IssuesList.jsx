@@ -266,7 +266,7 @@ const IssueListPage = () => {
         </Modal>
       </div>
       <TableContainer component={Paper} sx={{ borderRadius: "21px"}}>
-        <Table sx={{ background: "rgba(81, 169, 227, 0.2)" }}>
+        <Table /* sx={{ background: "rgba(81, 169, 227, 0.2)" }}*/>
           <TableHead>
             <TableRow sx={{ px: 10 }}>
               <TableCell
@@ -384,7 +384,11 @@ const IssueListPage = () => {
                     }}
                     className="edit-button-animation"
                   >
-                    <EditIcon sx={{ fontSize: 20 }} />
+                      <img
+                style={{ width:"15px" }}
+                src="/action-icons/pencil.png"
+                alt="edit"
+              />
                   </IconButton>
                   <IconButton
                     aria-label="delete"
@@ -395,13 +399,22 @@ const IssueListPage = () => {
                     }}
                     className="edit-button-animation"
                   >
-                    <DeleteIcon
+                    <img
+                style={{ width:"15px" }}
+                src="/action-icons/delete.png"
+                alt="delete"
+                onClick={() => {
+                  setIsDialogOpen(true);
+                  setIssueToBeDeleted(issue._id);
+                }}
+              />
+                    {/* <DeleteIcon
                       sx={{ fontSize: 20 }}
                       onClick={() => {
                         setIsDialogOpen(true);
                         setIssueToBeDeleted(issue._id);
                       }}
-                    />
+                    /> */}
                   </IconButton>
 
                   {/* <MoreVertIcon
@@ -458,7 +471,7 @@ const IssueListPage = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{ background: "rgba(81, 169, 227, 0.2)" }}
+          // sx={{ background: "rgba(81, 169, 227, 0.2)" }}
         />
       </TableContainer>
       <Dialog

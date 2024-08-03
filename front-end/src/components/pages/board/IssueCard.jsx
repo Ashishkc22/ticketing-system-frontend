@@ -31,7 +31,7 @@ const IssueCard = ({ name, id,status }) => {
       <div
         ref={drag}
       >
-        <Card sx={{ my:1,background:"beige" }}>
+        <Card sx={{ my:1,background:"#b47fd4" }}>
           <CardContent>
             <Typography variant="body2">Issue Id: {id}</Typography>
             <Typography variant="h6">{truncateSummary(name)}</Typography>

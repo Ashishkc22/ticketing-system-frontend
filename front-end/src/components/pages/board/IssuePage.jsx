@@ -33,16 +33,23 @@ function IssuePage() {
     (state) => state.projects.boardStatusChangeInProgress.isFailed
   );
 
-  const changeStatusApiInProgress = useSelector(
-    (state) => state.projects.boardStatusChangeInProgress.value
-  );
+  // const changeStatusApiInProgress = useSelector(
+  //   (state) => state.projects.boardStatusChangeInProgress.value
+  // );
 
   // *********************************************************Local Use State*********************************************************//
-  const [issueList, setIssuesList] = useState({});
+  const [issueList, setIssuesList] = useState({
+    Pending: [],
+    InProgress: [],
+    InReview: [],
+    Done: [],
+  });
   const [backupIssueList, setBackUpIssuesList] = useState({});
   const [dateType, setDateType] = useState("week");
   const [searchIssue, setSearchIssue] = useState("");
   let [urlDateType, setUrlDateType] = useSearchParams();
+  const [changeStatusApiInProgress, setChangeStatusApiInProgress] =
+    useState(false);
 
   // *********************************************************FUNCTIONS******************************************************//
   const setQueryParams = ({ key, value }) => {
@@ -71,7 +78,7 @@ function IssuePage() {
   };
   const shiftIssueStack = (item, stack) => {
     console.log("shift issue", issueList);
-    const issueCurrentStackCopy = issueList[item.status];
+    const issueCurrentStackCopy = issueList[item.status] || [];
     const issueTargetStackCopy = issueList[stack] || [];
     const issueIndex = issueCurrentStackCopy.findIndex(
       (issue) => String(issue._id) === item.id
@@ -87,15 +94,21 @@ function IssuePage() {
       [item.status]: issueCurrentStackCopy,
       [stack]: issueTargetStackCopy,
     };
+    console.log("updatedData -->>", updatedData);
     setIssuesList(updatedData);
     setBackUpIssuesList(updatedData);
   };
   const handleDrop = (item, stack) => {
     if (!isEmpty(_issueList)) {
+      setChangeStatusApiInProgress(true);
       changeIssueStatus({ _id: item.id, stack })
-        .then(() => shiftIssueStack(item, stack))
+        .then(() => {
+          shiftIssueStack(item, stack);
+          setChangeStatusApiInProgress(false);
+        })
         .catch(() => {
           dispatch(actions.resetIssueStatusApiTrackStatus());
+          setChangeStatusApiInProgress(false);
         });
     }
   };

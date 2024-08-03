@@ -4,27 +4,23 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Drawer,
   Avatar,
   Grid,
   Divider,
   Typography,
+  IconButton,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { actions as commonAction } from "../../../store/common";
 import { actions as projectActions } from "../../../store/projects";
 import storageUtil from "../../../utils/storage.util";
-// import MuiDrawer from "@mui/material/Drawer";
+import MuiDrawer from "@mui/material/Drawer";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../store/common";
-import HomeIcon from "@mui/icons-material/Home";
-import BugReportIcon from "@mui/icons-material/BugReport";
-import Toolbar from "@mui/material/Toolbar";
 import authUtil from "../../../utils/auth.util";
-import { isEmpty } from "lodash";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./menu.css";
-import { deepOrange } from "@mui/material/colors";
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
 import BugReportOutlinedIcon from "@mui/icons-material/BugReportOutlined";
 import ReorderOutlinedIcon from "@mui/icons-material/ReorderOutlined";
@@ -32,6 +28,8 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LogoutIcon from "@mui/icons-material/Logout";
 import clsx from "clsx";
+
+const drawerWidth = 190;
 
 const Item = ({
   text,
@@ -70,7 +68,12 @@ const Item = ({
         //   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
         // },
       }}
-      sx={{ display: "flex", ...style,...(selected && {background: "#b6a3e5a1"}) }}
+      sx={{
+        display: "flex",
+        ...style,
+        ...(selected && { background: "#b6a3e5a1" }),
+        borderRadius: "30px",
+      }}
     >
       <ListItemIcon
         button
@@ -80,7 +83,7 @@ const Item = ({
           // ...(selected && { color: "#0000ffd6"}),
         }}
       >
-        {icon && icon()}
+        {icon && <img width="27px" src={icon}></img>}
       </ListItemIcon>
       {text && (
         <ListItemText>
@@ -91,10 +94,49 @@ const Item = ({
   );
 };
 
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create("width", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: "hidden",
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: "nowrap",
+  boxSizing: "border-box",
+  ...(open && {
+    ...openedMixin(theme),
+    "& .MuiDrawer-paper": openedMixin(theme),
+  }),
+  ...(!open && {
+    ...closedMixin(theme),
+    "& .MuiDrawer-paper": closedMixin(theme),
+  }),
+}));
+
 const App = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   let location = useLocation();
+  const [open, setOpen] = useState(true);
   const isDrawerOpen = useSelector((state) => state.common.isDrawerOpen);
   const selectedProjectsDetails = useSelector(
     (state) => state.projects.projectDetails.selected
@@ -118,26 +160,25 @@ const App = () => {
     primary: [
       {
         text: "Issues",
-        icon: () => <BugReportOutlinedIcon />,
+        icon: "/menu-icons/issue.png",
         navigationPath: "/project/issues",
       },
       {
         text: "Board",
-        icon: () => <LeaderboardOutlinedIcon />,
+        icon: "/menu-icons/board.png",
         navigationPath: "/project/Board",
       },
       {
         text: "Backlogs",
-        icon: () => <ReorderOutlinedIcon />,
+        icon: "/menu-icons/backlog.png",
         navigationPath: "/project/Backlogs",
       },
     ],
   };
-  const truncateSummary = (summary) => {
+  const truncateSummary = (summary, maxLength = 10) => {
     if (!summary) {
       return "";
     }
-    const maxLength = 10; // Adjust the maximum length as needed
     if (summary.length > maxLength) {
       return summary.substring(0, maxLength) + "...";
     }
@@ -167,41 +208,58 @@ const App = () => {
 
   return (
     <Drawer
-      open
-      sx={{
-        width: 140,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: 180,
-          boxSizing: "border-box",
-          background: "rgb(180 219 243 / 20%)",
-        },
-      }}
-      variant="persistent"
+      open={open}
+      // sx={{
+      //   width: 144,
+      //   flexShrink: 0,
+      //   "& .MuiDrawer-paper": {
+      //     width: 184,
+      //     boxSizing: "border-box",
+      //     // background: "rgb(180 219 243 / 20%)",
+      //   },
+      // }}
+      variant="permanent"
       anchor="left"
     >
       {/* <Toolbar > */}
-      <Grid container sx={{ p: 1 }}>
-        <Grid item xs={12}>
+      {/* <IconButton
+        // sx={{
+        //   position: "fixed",
+        //   left: "178px",
+        //   "z-index": "5",
+        //   top: "18px",
+        //   width: "20px",
+        //   height: "20px",
+        //   background: "#0000ff91",
+        //   padding: "12px",
+        // }}
+        // className="drawerButton"
+        onClick={() => { setOpen(!open) }}
+      >
+        <KeyboardArrowLeftIcon />
+      </IconButton> */}
+      <Grid
+        container
+        sx={{ mr: 1 }}
+        justifyContent="center"
+        alignItems="center"
+        columnSpacing="6"
+      >
+        <Grid item>
           <Avatar sx={{ bgcolor: "#6addb2" }}>
             {userDetails?.email?.substring(0, 2)?.toLocaleUpperCase()}
           </Avatar>
         </Grid>
-        <Grid item xs={12} alignContent="center" sx={{ my: 1 }}>
+        <Grid item alignContent="center" sx={{ my: 1 }}>
           <Typography fontWeight={500}>
             {userDetails?.email?.split("@")?.[0]}
           </Typography>
-        </Grid>
-        <Grid item alignContent="center">
-          <Typography fontSize="10px" fontWeight="20px">
-            ID :
-          </Typography>
-        </Grid>
-        <Grid item display="flex" alignItems="center">
           <Typography fontSize="10px" fontWeight={500}>
             {userDetails.id}
           </Typography>
         </Grid>
+        <Grid item alignContent="center"></Grid>
+        <Grid item display="flex" alignItems="center"></Grid>
       </Grid>
       <Divider />
       <List sx={{ my: 1 }}>
@@ -210,7 +268,12 @@ const App = () => {
           className={clsx(
             location.pathname === "/project/projectDetails" && "selected-item"
           )}
-          sx={{ ...(location.pathname === "/project/projectDetails" && {background: "#0000e236"}) }}
+          sx={{
+            ...(location.pathname === "/project/projectDetails" && {
+              background: "#0000e236",
+            }),
+            borderRadius: "20px"
+          }}
           onClick={() => {
             nav("/project/projectDetails");
           }}
@@ -224,12 +287,15 @@ const App = () => {
             {selectedProjectsDetails?.shortDescription && (
               <Grid item md={12}>
                 <Typography fontSize={15}>
-                  {truncateSummary(selectedProjectsDetails?.shortDescription)}
+                  {truncateSummary(
+                    selectedProjectsDetails?.shortDescription,
+                    20
+                  )}
                 </Typography>
               </Grid>
             )}
           </Grid>
-          <ListItemIcon
+          {/* <ListItemIcon
             sx={{
               display: "flex",
               justifyContent: "flex-end",
@@ -239,8 +305,8 @@ const App = () => {
               // }),
             }}
           >
-            <ArrowForwardIcon fontSize="medium" />
-          </ListItemIcon>
+            <img src="/action-icons/right-nav.png" alt="right" width="27px" />
+          </ListItemIcon> */}
         </ListItem>
         {activeList.map((item) => {
           return (
@@ -261,9 +327,10 @@ const App = () => {
           width: "-webkit-fill-available",
         }}
       >
-        <Divider />
+        {/* <Divider sx={{ mb: 2 }}/> */}
         <ListItem
           button
+          sx={{ borderRadius: "30px" }}
           onClick={() => {
             nav("/");
           }}
@@ -271,9 +338,10 @@ const App = () => {
           <ListItemIcon
             sx={{
               minWidth: "30px",
+              mx: 2,
             }}
           >
-            <ArrowBackIcon fontSize="medium" />
+            <img src="/action-icons/left-nav.png" alt="left" width="27px" />
           </ListItemIcon>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Projects
@@ -281,6 +349,7 @@ const App = () => {
         </ListItem>
         <ListItem
           button
+          sx={{ borderRadius: "30px" }}
           onClick={() => {
             dispatch(commonAction.toggleIsUserLoggedIn());
             authUtil.clearCookies();
@@ -292,9 +361,10 @@ const App = () => {
           <ListItemIcon
             sx={{
               minWidth: "30px",
+              mx: 2,
             }}
           >
-            <LogoutIcon fontSize="medium" />
+            <img src="/action-icons/logout.png" alt="logout" width="27px" />
           </ListItemIcon>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Logout

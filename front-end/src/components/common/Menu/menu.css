@@ -1,9 +1,30 @@
 .selected-item {
-    /* background: #fbe5c8 !important; */
-    /* color: #0000ffd6  !important; */
-    border-right: 4px solid #b6a3e5 !important;
-    /* border-radius: 10px !important; */
+  background: rgba(81, 169, 227, 0.2) !important;
+  /* color: #0000ffd6  !important; */
+  /* border-right: 4px solid #b6a3e5 !important; */
+  /* border-radius: 10px !important; */
 }
 .selected-item:hover {
-    background-color: #b6a3e5a1 !important;
+  background-color: rgb(81 169 227 / 40%) !important;
+}
+
+.drawerButton {
+  position: fixed !important;
+  left: 178px !important;
+  z-index: 5 !important;
+  top: 18px !important;
+  width: 20px !important;
+  height: 20px !important;
+  background: #0000ff91 !important;
+  padding: 12px !important;
+  animation: move 10s;
+}
+
+@keyframes move {
+  from {
+    left: 178px;
+  }
+  to {
+    left: 53px;
+  }
 }

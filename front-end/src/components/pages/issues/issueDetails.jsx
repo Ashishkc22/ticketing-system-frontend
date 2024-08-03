@@ -31,11 +31,11 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const statusIcons = {
-  Task: <TaskIcon style={{ color: "#4caf50" }} />, // Green
-  Bugs: <BugReportIcon style={{ color: "#f44336" }} />, // Red
-  Problem: <ErrorOutlineIcon style={{ color: "#ff9800" }} />, // Orange
-  Change: <AutorenewIcon style={{ color: "#2196f3" }} />, // Blue
-  Backlog: <AssignmentIcon style={{ color: "#9e9e9e" }} />, // Grey
+  Task: "/task.png", // Green
+  Bugs: "/bug.png", // Red
+  Problem: "/warning.png", // Orange
+  Change: "/exchange.png", // Blue
+  Backlog: "/backlog-form.png", // Grey
 };
 const IssueDetails = () => {
   const [issueDetails, setIssueDetails] = useState({});
@@ -55,13 +55,11 @@ const IssueDetails = () => {
     setIssueDetails(apiIssueData);
   }, [apiIssueData]);
   return (
-    <Container maxWidth="false">
+    <Container maxWidth="false" sx={{ mt:2 }}>
       <Card
         variant="outlined"
         sx={{
-          // padding: "24px",
           py: "20px",
-          background: "rgba(81, 169, 227, 0.2)",
           borderRadius: "21px",
         }}
       >
@@ -69,7 +67,7 @@ const IssueDetails = () => {
         <Grid container>
           <Grid item sx={{ m:1 }}>
             <IconButton onClick={() => navigate(-1)}>
-              <ArrowBackOutlinedIcon />
+              <img src="/action-icons/left-nav.png" alt="left" width="27px" />
             </IconButton>
           </Grid>
           <Grid item xs={8}>
@@ -103,7 +101,7 @@ const IssueDetails = () => {
                   alignItems="center"
                   sx={{ mx:1 }}
                 >
-                  {statusIcons[issueDetails.issueType]}
+                  <img src={statusIcons[issueDetails.issueType]} alt="status" width="20px" />
                   <Typography
                     variant="h6"
                     fontWeight="600"
@@ -121,8 +119,10 @@ const IssueDetails = () => {
         <Grid container sx={{ m: 1 }} spacing={3}>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <LabelOutlined
-                sx={{ marginRight: "8px", color: "primary.main" }}
+              <img
+                style={{ marginRight: "8px", color: "primary.main" }}
+                src="/ID (1).png"
+                alt="ID"
               />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
@@ -134,7 +134,11 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <WorkOutline sx={{ marginRight: "8px", color: "primary.main" }} />
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/ID.png"
+                alt="ID"
+              />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
                   Project ID
@@ -147,8 +151,10 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <DescriptionOutlined
-                sx={{ marginRight: "8px", color: "primary.main" }}
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/clipboard.png"
+                alt="clipboard"
               />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
@@ -163,8 +169,10 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <LabelOutlined
-                sx={{ marginRight: "8px", color: "primary.main" }}
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/ID.png"
+                alt="ID"
               />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
@@ -176,8 +184,10 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <CalendarToday
-                sx={{ marginRight: "8px", color: "primary.main" }}
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/date-time.png"
+                alt="dateTime"
               />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
@@ -191,7 +201,11 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <Update sx={{ marginRight: "8px", color: "primary.main" }} />
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/clock.png"
+                alt="clock"
+              />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
                   Updated At
@@ -204,7 +218,11 @@ const IssueDetails = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center">
-              <AccessTime sx={{ marginRight: "8px", color: "primary.main" }} />
+            <img
+                style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
+                src="/last-minute.png"
+                alt="dueDate"
+              />
               <Box>
                 <Typography variant="subtitle2" color="text.secondary">
                   Due Date

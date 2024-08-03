@@ -91,10 +91,6 @@ export function Home() {
                 open={isMenuOpen}
                 onClose={() => setIsMenuOpen(false)}
               >
-                {/* <MenuItem value="setting">
-                  <SettingsIcon sx={{ mx: 1 }} />
-                  Settings
-                </MenuItem> */}
                 <MenuItem
                   onClick={() => {
                     dispatch(actions.toggleIsUserLoggedIn());
@@ -102,7 +98,7 @@ export function Home() {
                     nav("/auth/login");
                   }}
                 >
-                  <LogoutIcon sx={{ mx: 1 }} />
+                   <img style={{ marginRight:5}} src="/action-icons/logout.png" alt="logout" width="27px" />
                   Logout
                 </MenuItem>
               </Menu>
@@ -110,7 +106,7 @@ export function Home() {
           </Grid>
         )}
 
-        <Container sx={{ my: 2, px: 0 }} maxWidth="false">
+        <Container sx={{ my: 2, px: 0 }} maxWidth="false" padding="0">
           <Outlet />
         </Container>
       </Box>

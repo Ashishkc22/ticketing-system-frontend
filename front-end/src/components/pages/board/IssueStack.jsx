@@ -22,7 +22,7 @@ const IssueStack = ({ title, issues, onDrop,isLoading = false }) => {
         position: 'relative',  // Ensure the backdrop positions correctly
         p: 1,
         borderColor: isOver ? "primary.main" : "grey.500",
-        background: "rgba(81, 169, 227, 0.2)",
+        // background: "rgba(81, 169, 227, 0.2)",
         borderRadius: "21px"
       }}
     >
