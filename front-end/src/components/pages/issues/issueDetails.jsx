@@ -2,33 +2,17 @@
 import React, { useEffect, useState } from "react";
 import {
   Card,
-  CardContent,
   Typography,
   Grid,
   Divider,
   Box,
   Container,
 } from "@mui/material";
-import {
-  AccessTime,
-  CalendarToday,
-  DescriptionOutlined,
-  LabelOutlined,
-  Update,
-  WorkOutline,
-} from "@mui/icons-material";
 import BOARD_CONSTANT from "../../../constants/board";
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { useDispatch, useSelector } from "react-redux";
 import { thunks } from "../../../store/projects";
-
-import TaskIcon from "@mui/icons-material/Task";
-import BugReportIcon from "@mui/icons-material/BugReport";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import AutorenewIcon from "@mui/icons-material/Autorenew";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 
 const statusIcons = {
   Task: "/task.png", // Green
@@ -39,7 +23,7 @@ const statusIcons = {
 };
 const IssueDetails = () => {
   const [issueDetails, setIssueDetails] = useState({});
-  let [issueId, setSearchParams] = useSearchParams();
+  let [issueId] = useSearchParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const apiIssueData = useSelector((state) => state.projects.issueDetails);

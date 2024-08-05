@@ -26,11 +26,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ClearIcon from "@mui/icons-material/Clear";
 import { thunks,actions } from "../../../store/projects";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { isEmpty } from "lodash";
-import Menu from "@mui/material/Menu";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import BOARD_CONSTANTS from "../../../constants/board";
 import AddIcon from "@mui/icons-material/Add";
 import moment from "moment";
@@ -55,9 +51,8 @@ const IssueListPage = () => {
   const currentProjectDetails = useSelector(
     (state) => state.projects.projectDetails.selected
   );
-  let [searchParams, setSearchParams] = useSearchParams();
-  let [statusParams, setStatusParams] = useSearchParams();
-  let [queryParamsDetails, setQueryParamsDetails] = useState({});
+  let [searchParams] = useSearchParams();
+  let [statusParams] = useSearchParams();
 
   const statusColorMapper = {
     InReview: "#f7c984",
@@ -65,8 +60,6 @@ const IssueListPage = () => {
     Done: "#91b992",
     Pending: "#82bded",
   };
-
-  const [anchorEl, setAnchorEl] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filteredIssues, setFilteredIssues] = useState([]);
@@ -109,7 +102,6 @@ const IssueListPage = () => {
 
   useEffect(() => {
     return () => {
-      console.log('issue list unmounting');
       dispatch(actions.resetIssueList());
     }
   },[])
@@ -408,56 +400,7 @@ const IssueListPage = () => {
                   setIssueToBeDeleted(issue._id);
                 }}
               />
-                    {/* <DeleteIcon
-                      sx={{ fontSize: 20 }}
-                      onClick={() => {
-                        setIsDialogOpen(true);
-                        setIssueToBeDeleted(issue._id);
-                      }}
-                    /> */}
                   </IconButton>
-
-                  {/* <MoreVertIcon
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setAnchorEl(e.currentTarget);
-                    }}
-                  />
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      setAnchorEl(null);
-                    }}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
-                    }}
-                  >
-                    <MenuItem
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setAnchorEl(null);
-                      }}
-                    >
-                      <IconButton aria-label="delete" sx={{ color: "#f44336" }}>
-                        <DeleteIcon sx={{ fontSize: 20 }} />
-                      </IconButton>
-                    </MenuItem>
-                    <MenuItem>
-                      <IconButton
-                        aria-label="Edit"
-                        size="xsmall"
-                        sx={{ color: "#974998" }}
-                      >
-                        <EditIcon sx={{ fontSize: 20 }} />
-                      </IconButton>
-                    </MenuItem>
-                  </Menu> */}
                 </TableCell>
               </TableRow>
             ))}
@@ -471,7 +414,6 @@ const IssueListPage = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          // sx={{ background: "rgba(81, 169, 227, 0.2)" }}
         />
       </TableContainer>
       <Dialog

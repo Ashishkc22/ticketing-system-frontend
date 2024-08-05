@@ -9,9 +9,6 @@ import {
   TableHead,
   TableRow,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   TablePagination,
   Box,
@@ -20,7 +17,6 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ClearIcon from "@mui/icons-material/Clear"; // Import ClearIcon
 import { thunks } from "../../../store/projects";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -42,9 +38,8 @@ const IssueListPage = () => {
   const currentProjectDetails = useSelector(
     (state) => state.projects.projectDetails.selected
   );
-  let [searchParams, setSearchParams] = useSearchParams();
-  let [statusParams, setStatusParams] = useSearchParams();
-  let [queryParamsDetails, setQueryParamsDetails] = useState({});
+  let [searchParams] = useSearchParams();
+  let [statusParams] = useSearchParams();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [page, setPage] = useState(0);
@@ -115,13 +110,6 @@ const IssueListPage = () => {
     const params = { search: "", status: statusFilter };
     updateSearchParams(params);
     fetchIssueList({ search: "" });
-  };
-
-  const handleStatusFilter = (e) => {
-    const status = e.target.value;
-    setStatusFilter(status);
-    const params = { search: searchTerm, status: status };
-    updateSearchParams(params);
   };
 
   const updateSearchParams = (params) => {

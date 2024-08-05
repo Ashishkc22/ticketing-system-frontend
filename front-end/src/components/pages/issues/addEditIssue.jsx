@@ -97,13 +97,11 @@ export default function AddEditIssue({ closeModal, issueData }) {
 
   useEffect(() => {
     if (isEmpty(projectList)) {
-      console.log("call project details");
       dispatch(thunks["projects/getProjects"]());
     }
   }, []);
   useEffect(() => {
     if (!isEmpty(issueData)) {
-      console.log("edit issueData", issueData);
       setFormDetails({
         _id: currentProjectDetails._id,
         issueType: issueData?.issueType || "",

@@ -16,7 +16,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import { thunks, actions } from "../../../store/projects";
 import { useDispatch, useSelector } from "react-redux";
-import { flattenDepth, isEmpty } from "lodash";
+import { cloneDeep, flattenDepth, isEmpty } from "lodash";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 let typingTimer;
@@ -57,7 +57,6 @@ function IssuePage() {
       setUrlDateType({});
     } else {
       const status = urlDateType.entries();
-      console.log("statusParams.getAll()", urlDateType.entries());
       setUrlDateType({ [key]: value, ...status });
     }
   };
@@ -76,34 +75,12 @@ function IssuePage() {
       })
     );
   };
-  const shiftIssueStack = (item, stack) => {
-    console.log("shift issue", issueList);
-    const issueCurrentStackCopy = issueList[item.status] || [];
-    const issueTargetStackCopy = issueList[stack] || [];
-    const issueIndex = issueCurrentStackCopy.findIndex(
-      (issue) => String(issue._id) === item.id
-    );
-    const issueCopy = {
-      ...issueCurrentStackCopy[issueIndex],
-      status: stack,
-    };
-    issueCurrentStackCopy.splice(issueIndex, 1);
-    issueTargetStackCopy.push(issueCopy);
-    const updatedData = {
-      ...issueList,
-      [item.status]: issueCurrentStackCopy,
-      [stack]: issueTargetStackCopy,
-    };
-    console.log("updatedData -->>", updatedData);
-    setIssuesList(updatedData);
-    setBackUpIssuesList(updatedData);
-  };
   const handleDrop = (item, stack) => {
     if (!isEmpty(_issueList)) {
       setChangeStatusApiInProgress(true);
       changeIssueStatus({ _id: item.id, stack })
         .then(() => {
-          shiftIssueStack(item, stack);
+          getIssuesListByDateRange();
           setChangeStatusApiInProgress(false);
         })
         .catch(() => {
@@ -116,29 +93,26 @@ function IssuePage() {
   // ********************************************************* Hooks ********************************************************* //
 
   useEffect(() => {
-    const formatedData = {};
-    _issueList.forEach((element) => {
-      if (!formatedData.hasOwnProperty(element.status)) {
-        formatedData[element.status] = [];
-      }
-      formatedData[element.status].push(element);
-    });
-    console.log("formatedData", formatedData);
-    setIssuesList(formatedData);
-    setBackUpIssuesList(formatedData);
+   
+    setIssuesList(_issueList);
+    setBackUpIssuesList(_issueList);
     if (isChangeStatusApiFalied) {
       dispatch(actions.resetIssueStatusApiTrackStatus());
     }
   }, [_issueList, isChangeStatusApiFalied]);
 
+  function getIssuesListByDateRange() {
+    dispatch(
+      thunks["projects/getIssueByDateRange"]({
+        rangeType: dateType,
+        projectId: projectDetails._id,
+      })
+    );
+  }
+
   useEffect(() => {
     if (!isEmpty(projectDetails)) {
-      dispatch(
-        thunks["projects/getIssueByDateRange"]({
-          rangeType: dateType,
-          projectId: projectDetails._id,
-        })
-      );
+      getIssuesListByDateRange()
     }
   }, [projectDetails, dateType]);
 
@@ -219,6 +193,7 @@ function IssuePage() {
               <Grid key={data.value} item sm={12} md={5} lg={3}>
                 <IssueStack
                   title={data}
+                  key={data.value + 1}
                   issues={issueList[data.value] || []}
                   onDrop={(item, value) => handleDrop(item, value)}
                   isLoading={changeStatusApiInProgress}

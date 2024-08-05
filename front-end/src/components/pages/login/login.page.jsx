@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import "./login.css";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
 import validation from "../../../utils/validation.util";
-import { Box, Grid, Collapse } from "@mui/material";
+import { Grid, Collapse } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
@@ -20,8 +19,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { thunks } from "../../../store/common";
-
-// console.log("thunks-----", thunks);
 
 export default function LoginPage() {
   const nav = useNavigate();
@@ -100,9 +97,7 @@ export default function LoginPage() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      // height="100%"
       height={window.innerHeight}
-      // className="login-background"
       sx={{
         background: "aliceblue",
         padding: 3,

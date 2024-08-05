@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  Box,
   Grid,
   TextField,
   Button,
   Typography,
-  Divider,
-  Paper,
 } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -103,27 +100,10 @@ export default function ProjectForm() {
   return (
     <div
       style={{
-        // maxWidth: 600,
-        // mx: "auto",
         mt: 5,
         p: 4,
-        // borderRadius: 3,
-        // boxShadow:2,
-        // backgroundColor: "#f0f4f7",
       }}
     >
-      {/* // <Paper
-    //   elevation={10}
-    //   sx={{
-    //     maxWidth: 600,
-    //     mx: "auto",
-    //     mt: 5,
-    //     p: 4,
-    //     borderRadius: 3,
-    //     boxShadow:2,
-    //     backgroundColor: "#f0f4f7",
-    //   }}
-    // > */}
       <Typography
         gutterBottom
         variant="h5"

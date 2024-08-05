@@ -1,10 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import "./login.css";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
 import validation from "../../../utils/validation.util";
-import { Box, Grid, Collapse } from "@mui/material";
+import { Grid, Collapse } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
@@ -21,8 +20,6 @@ import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { thunks } from "../../../store/common";
 import { useParams } from "react-router-dom";
-
-// console.log("thunks-----", thunks);
 
 export default function PasswordReset(props) {
   const nav = useNavigate();
@@ -133,9 +130,7 @@ export default function PasswordReset(props) {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      // height="100%"
       height={window.innerHeight}
-      // className="login-background"
       sx={{
         background: "aliceblue",
         padding: 3,
@@ -330,32 +325,6 @@ export default function PasswordReset(props) {
                 </Grid>
               </div>
             )}
-            {/*  */}
-            {/* <Grid item sx={gridItemStyle}>
-              <LoadingButton
-                loading={isButtonLoading}
-                className="gradient-button"
-                sx={{
-                  width: "100%",
-                  background: "linear-gradient(to right, rgb(106 221 178 / 53%), rgb(140 91 216 / 50%))",
-                  color: "#fff",
-                  "&:hover": {
-                    background: "background: linear-gradient(to right, rgb(91 193 155 / 67%), rgb(157 122 212 / 66%))",
-                  },
-                  "& .css-1yt7yx7-MuiLoadingButton-loadingIndicator": {
-                    color: "#fff",
-                  },
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleFormSubmit();
-                }}
-              >
-                <span className={!isButtonLoading ? "text-white-color" : ""}>
-                  Login
-                </span>
-              </LoadingButton>
-            </Grid> */}
           </Grid>
           <Grid container justifyContent="space-between" sx={{ mt: 2 }}>
             <Grid item>

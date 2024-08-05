@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
@@ -21,19 +20,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export default function signup() {
   const nav = useNavigate();
-  const paperStyle = styled("paper")(({ theme }) => ({
-    padding: theme.spacing(1),
-    [theme.breakpoints.down("md")]: {
-      backgroundColor: red[500],
-    },
-    [theme.breakpoints.up("md")]: {
-      backgroundColor: blue[500],
-    },
-    [theme.breakpoints.up("lg")]: {
-      backgroundColor: green[500],
-    },
-  }));
-  const theme = useTheme();
   const gridItemStyle = {
     py: 2,
   };
@@ -119,7 +105,6 @@ export default function signup() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      // className="login-background"
       sx={{
         background: 'aliceblue',
         padding: 3,
@@ -139,17 +124,6 @@ export default function signup() {
                 Create account
               </Typography>
             </Grid>
-            {/* <Grid item sx={gridItemStyle}>
-              <TextField
-                label="Mobile no."
-                variant="standard"
-                error={errors.phone.valid}
-                helperText={errors.phone.message}
-                fullWidth
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target?.value })}
-              />
-            </Grid> */}
             <Grid item sx={gridItemStyle}>
               <TextField
                 label="Email"
@@ -192,13 +166,6 @@ export default function signup() {
                   }
                 />
               </FormControl>
-              {/* <TextField
-              label="Password"
-              type={show ? "password" : "text"}
-              id="PasswordTextField"
-              variant="standard"
-              fullWidth
-            /> */}
               <Collapse in={errors.password.valid}>
                 <div style={{ "text-align": "initial", "padding-top": "10px" }}>
                   <Typography sx={{ color: "red", alignItems: "start" }}>
@@ -253,13 +220,6 @@ export default function signup() {
                   </FormHelperText>
                 </Collapse>
               </FormControl>
-              {/* <TextField
-              label="Password"
-              type={show ? "password" : "text"}
-              id="PasswordTextField"
-              variant="standard"
-              fullWidth
-            /> */}
             </Grid>
             <Grid item sx={gridItemStyle}>
               <Button

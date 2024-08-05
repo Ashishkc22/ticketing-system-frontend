@@ -120,7 +120,7 @@ export default [
       fulfilled: (state, action) => {
         state.boardStatusChangeInProgress.value = false;
         state.boardStatusChangeInProgress.isFailed = false;
-        state.boardData = action?.payload?.data || [];
+        state.boardData = action?.payload?.data?.[0] || {};
         console.log('action?.payload?.data',action?.payload?.data);
       },
     },

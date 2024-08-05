@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Card from "../../common/Card/Card";
 import Grid from "@mui/material/Grid";
 import { thunks, actions as projectActions } from "../../../store/projects";
 import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
 import AddIcon from "@mui/icons-material/Add";
-import ProjectForm from "../projectDetails/addEditProjectForm";
 import Typography from "@mui/material/Typography";
 import MUCard from "@mui/material/Card";
 import { CardActionArea, IconButton, Badge } from "@mui/material";
@@ -17,19 +15,10 @@ import storage from "../../../utils/storage.util";
 export default function Home() {
   const theme = useTheme();
   const nav = useNavigate();
-  const [isProjectFormOpen, setProjectFormState] = useState(false);
   const projectsDetails = useSelector((state) => state.projects.projectDetails);
-  const isNewProjectSubmitted = useSelector(
-    (state) => !state.projects.isProjectSubmitted
-  );
   const dispatch = useDispatch();
   const [selectMode, setSelectMode] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState("");
-
-  function closeDialog() {
-    setProjectFormState(false);
-    dispatch(thunks["projects/getProjects"]());
-  }
 
   useEffect(() => {
     dispatch(thunks["projects/getProjects"]());
