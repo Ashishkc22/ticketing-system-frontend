@@ -18,7 +18,7 @@ const statusIcons = {
   Task: "/form-icons/task.ico", // Green
   Bugs: "/form-icons/bug.ico", // Red
   Problem: "/form-icons/warning.ico", // Orange
-  Change: "/form-icons/exchange.ico", // Blue
+  Change: "/form-icons/exchange.png", // Blue
   Backlog: "/form-icons/backlog-form.ico", // Grey
 };
 const IssueDetails = () => {
@@ -170,7 +170,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/form-icons/date-time.ico"
+                src="/form-icons/date-time.png"
                 alt="dateTime"
               />
               <Box>
