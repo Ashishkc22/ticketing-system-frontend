@@ -108,9 +108,8 @@ export default function ProjectForm() {
         gutterBottom
         variant="h5"
         component="div"
-        // align="center"
         color="primary"
-        sx={{ mb: 2 }}
+        sx={{ mb: 2, ml: "20%" }}
       >
         {projectId ? "Edit Project" : "Create Project"}
       </Typography>

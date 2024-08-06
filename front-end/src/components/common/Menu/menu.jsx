@@ -8,7 +8,6 @@ import {
   Grid,
   Divider,
   Typography,
-  IconButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { actions as commonAction } from "../../../store/common";
@@ -18,15 +17,8 @@ import MuiDrawer from "@mui/material/Drawer";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../../store/common";
 import authUtil from "../../../utils/auth.util";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./menu.css";
-import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
-import BugReportOutlinedIcon from "@mui/icons-material/BugReportOutlined";
-import ReorderOutlinedIcon from "@mui/icons-material/ReorderOutlined";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import LogoutIcon from "@mui/icons-material/Logout";
 import clsx from "clsx";
 
 const drawerWidth = 190;
@@ -58,15 +50,6 @@ const Item = ({
       }}
       className={{
         "selected-item": selected,
-        // "& .css-pavq5j-MuiButtonBase-root-MuiListItem-root": {
-        //   "&:hover":{
-        //   backgroundColor: selected ? "#0000e236": "#f5f5ed",
-        //   }
-        // },
-        // "&:hover": {
-        //   transform: "scale(1.05)",
-        //   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
-        // },
       }}
       sx={{
         display: "flex",
@@ -80,7 +63,6 @@ const Item = ({
         sx={{
           display: "flex",
           justifyContent: "center",
-          // ...(selected && { color: "#0000ffd6"}),
         }}
       >
         {icon && <img width="27px" src={icon}></img>}
@@ -137,7 +119,6 @@ const App = () => {
   const nav = useNavigate();
   let location = useLocation();
   const [open, setOpen] = useState(true);
-  const isDrawerOpen = useSelector((state) => state.common.isDrawerOpen);
   const selectedProjectsDetails = useSelector(
     (state) => state.projects.projectDetails.selected
   );
@@ -154,23 +135,22 @@ const App = () => {
 
   const primaryRef = React.useRef(null);
   const secondaryRef = React.useRef(null);
-  const nodeRef = listType == "primary" ? primaryRef : secondaryRef;
 
   const menuListDetails = {
     primary: [
       {
         text: "Issues",
-        icon: "/menu-icons/issue.png",
+        icon: "/menu-icons/issue.ico",
         navigationPath: "/project/issues",
       },
       {
         text: "Board",
-        icon: "/menu-icons/board.png",
+        icon: "/menu-icons/board.ico",
         navigationPath: "/project/Board",
       },
       {
         text: "Backlogs",
-        icon: "/menu-icons/backlog.png",
+        icon: "/menu-icons/backlog.ico",
         navigationPath: "/project/Backlogs",
       },
     ],
@@ -186,11 +166,6 @@ const App = () => {
   };
 
   const [activeList, setActiveList] = useState([]);
-  // const classes = styled();
-  //   const [open, setOpen] = React.useState(false);
-
-  // const handleCloseDrawer = () => {};
-
   const handleCloseDrawer = ({ text, navigationPath }) => {
     dispatch(actions.toggleDrawer());
     if (navigationPath) {
@@ -204,40 +179,12 @@ const App = () => {
     dispatch(actions.setSelectedMenuPath(pop.navigationPath));
   };
 
-  console.log("userDetails", userDetails);
-
   return (
     <Drawer
       open={open}
-      // sx={{
-      //   width: 144,
-      //   flexShrink: 0,
-      //   "& .MuiDrawer-paper": {
-      //     width: 184,
-      //     boxSizing: "border-box",
-      //     // background: "rgb(180 219 243 / 20%)",
-      //   },
-      // }}
       variant="permanent"
       anchor="left"
     >
-      {/* <Toolbar > */}
-      {/* <IconButton
-        // sx={{
-        //   position: "fixed",
-        //   left: "178px",
-        //   "z-index": "5",
-        //   top: "18px",
-        //   width: "20px",
-        //   height: "20px",
-        //   background: "#0000ff91",
-        //   padding: "12px",
-        // }}
-        // className="drawerButton"
-        onClick={() => { setOpen(!open) }}
-      >
-        <KeyboardArrowLeftIcon />
-      </IconButton> */}
       <Grid
         container
         sx={{ mr: 1 }}
@@ -341,7 +288,7 @@ const App = () => {
               mx: 2,
             }}
           >
-            <img src="/action-icons/left-nav.png" alt="left" width="27px" />
+            <img src="/action-icons/left-nav.ico" alt="left" width="27px" />
           </ListItemIcon>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Projects
@@ -364,7 +311,7 @@ const App = () => {
               mx: 2,
             }}
           >
-            <img src="/action-icons/logout.png" alt="logout" width="27px" />
+            <img src="/action-icons/logout.ico" alt="logout" width="27px" />
           </ListItemIcon>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
             Logout

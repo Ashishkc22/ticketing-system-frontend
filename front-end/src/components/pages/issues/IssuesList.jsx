@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import ClearIcon from "@mui/icons-material/Clear";
-import { thunks,actions } from "../../../store/projects";
+import { thunks, actions } from "../../../store/projects";
 import { isEmpty } from "lodash";
 import BOARD_CONSTANTS from "../../../constants/board";
 import AddIcon from "@mui/icons-material/Add";
@@ -38,7 +38,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import "./Issue.css"
+import "./Issue.css";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 let typingTimer;
@@ -103,8 +103,8 @@ const IssueListPage = () => {
   useEffect(() => {
     return () => {
       dispatch(actions.resetIssueList());
-    }
-  },[])
+    };
+  }, []);
 
   useEffect(() => {
     fetchIssueList({ search: searchTerm });
@@ -257,7 +257,7 @@ const IssueListPage = () => {
           />
         </Modal>
       </div>
-      <TableContainer component={Paper} sx={{ borderRadius: "21px"}}>
+      <TableContainer component={Paper} sx={{ borderRadius: "21px" }}>
         <Table /* sx={{ background: "rgba(81, 169, 227, 0.2)" }}*/>
           <TableHead>
             <TableRow sx={{ px: 10 }}>
@@ -376,11 +376,11 @@ const IssueListPage = () => {
                     }}
                     className="edit-button-animation"
                   >
-                      <img
-                style={{ width:"15px" }}
-                src="/action-icons/pencil.png"
-                alt="edit"
-              />
+                    <img
+                      style={{ width: "15px" }}
+                      src="/action-icons/pencil.ico"
+                      alt="edit"
+                    />
                   </IconButton>
                   <IconButton
                     aria-label="delete"
@@ -392,14 +392,14 @@ const IssueListPage = () => {
                     className="edit-button-animation"
                   >
                     <img
-                style={{ width:"15px" }}
-                src="/action-icons/delete.png"
-                alt="delete"
-                onClick={() => {
-                  setIsDialogOpen(true);
-                  setIssueToBeDeleted(issue._id);
-                }}
-              />
+                      style={{ width: "15px" }}
+                      src="/action-icons/delete.ico"
+                      alt="delete"
+                      onClick={() => {
+                        setIsDialogOpen(true);
+                        setIssueToBeDeleted(issue._id);
+                      }}
+                    />
                   </IconButton>
                 </TableCell>
               </TableRow>

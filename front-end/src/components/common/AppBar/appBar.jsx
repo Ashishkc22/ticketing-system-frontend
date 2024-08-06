@@ -63,36 +63,13 @@ export default function AppHeader() {
   const loginedUserDetails = useSelector((state) => state.common.userDetails);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar  position="static">
-        <Toolbar className="tool-bar" >
+  <Box sx={{ flexGrow: 1 }}>
+      {/* <AppBar  position="static" sx={{ background: "tran" }}> */}
+        <Toolbar className="tool-bar" sx={{  background: "aliceblue" }} >
           <Box>
             <IconButton>
               <ArrowBackIcon onClick={() => nav(-1)}/>
             </IconButton>
-            {/* {pages.map((page) => (
-              <NavLink
-                key={page.name}
-                to={page.link}
-                sx={{
-                  my: 2,
-                  width: "80px",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-                className={clsx(
-                  "links",
-                  location.pathname === "/" && "selected-link"
-                )}
-              >
-                <Typography
-                  gutterBottom
-                  sx={{ fontWeight: 600, fontSize: "large" }}
-                >
-                  {page.name}
-                </Typography>
-              </NavLink>
-            ))} */}
           </Box>
 
           {/* Profile Menu */}
@@ -111,10 +88,6 @@ export default function AppHeader() {
               open={isMenuOpen}
               onClose={() => setIsMenuOpen(false)}
             >
-              {/* <MenuItem value="setting">
-                <SettingsIcon sx={{ mx: 1 }} />
-                Settings
-              </MenuItem> */}
               <MenuItem
                 onClick={() => {
                   dispatch(actions.toggleIsUserLoggedIn());
@@ -122,7 +95,7 @@ export default function AppHeader() {
                   nav("/auth/login");
                 }}
               >
-                <LogoutIcon sx={{ mx: 1 }} />
+                 <img src="/action-icons/logout.ico" alt="logout" width="27px" style={{ marginRight: "10px" }} />
                 Logout
               </MenuItem>
             </Menu>
@@ -132,7 +105,6 @@ export default function AppHeader() {
                 onClick={() => console.log("hello")}
               >
                 {
-                  /* {!isEmpty(loginedUserDetails.payload) && */
                   loginedUserDetails?.email
                     ?.substring(0, 2)
                     ?.toLocaleUpperCase()
@@ -141,7 +113,7 @@ export default function AppHeader() {
             </IconButton>
           </Grid>
         </Toolbar>
-      </AppBar>
+      {/* </AppBar> */}
     </Box>
   );
 }

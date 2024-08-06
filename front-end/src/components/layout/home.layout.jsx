@@ -4,9 +4,7 @@ import AppBar from "../common/AppBar/appBar";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Menu, MenuItem } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { styled, useTheme } from "@mui/material/styles";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -19,16 +17,6 @@ import authUtil from "../../utils/auth.util";
 import Avatar from "@mui/material/Avatar";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import { useNavigate, useLocation } from "react-router-dom";
-import { deepOrange } from "@mui/material/colors";
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
 
 export function Home() {
   const dispatch = useDispatch();
@@ -52,9 +40,6 @@ export function Home() {
   }, []);
   return (
     <Grid>
-      {/* <AppBar />
-      <Menu /> */}
-
       <Box component="main" sx={{ flexGrow: 1 }}>
         {/* <DrawerHeader /> */}
         {location.pathname != "/" ? (
@@ -98,7 +83,7 @@ export function Home() {
                     nav("/auth/login");
                   }}
                 >
-                   <img style={{ marginRight:5}} src="/action-icons/logout.png" alt="logout" width="27px" />
+                   <img style={{ marginRight:5}} src="/action-icons/logout.ico" alt="logout" width="27px" />
                   Logout
                 </MenuItem>
               </Menu>

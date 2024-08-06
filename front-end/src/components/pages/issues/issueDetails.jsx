@@ -15,11 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunks } from "../../../store/projects";
 
 const statusIcons = {
-  Task: "/task.png", // Green
-  Bugs: "/bug.png", // Red
-  Problem: "/warning.png", // Orange
-  Change: "/exchange.png", // Blue
-  Backlog: "/backlog-form.png", // Grey
+  Task: "/form-icons/task.ico", // Green
+  Bugs: "/form-icons/bug.ico", // Red
+  Problem: "/form-icons/warning.ico", // Orange
+  Change: "/form-icons/exchange.ico", // Blue
+  Backlog: "/form-icons/backlog-form.ico", // Grey
 };
 const IssueDetails = () => {
   const [issueDetails, setIssueDetails] = useState({});
@@ -51,7 +51,7 @@ const IssueDetails = () => {
         <Grid container>
           <Grid item sx={{ m:1 }}>
             <IconButton onClick={() => navigate(-1)}>
-              <img src="/action-icons/left-nav.png" alt="left" width="27px" />
+              <img src="/action-icons/left-nav.ico" alt="left" width="27px" />
             </IconButton>
           </Grid>
           <Grid item xs={8}>
@@ -120,7 +120,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/ID.png"
+                src="/form-icons/ID.ico"
                 alt="ID"
               />
               <Box>
@@ -137,7 +137,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/clipboard.png"
+                src="/form-icons/clipboard.ico"
                 alt="clipboard"
               />
               <Box>
@@ -155,7 +155,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/ID.png"
+                src="/form-icons/ID.ico"
                 alt="ID"
               />
               <Box>
@@ -170,7 +170,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/date-time.png"
+                src="/form-icons/date-time.ico"
                 alt="dateTime"
               />
               <Box>
@@ -187,7 +187,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/clock.png"
+                src="/form-icons/clock.ico"
                 alt="clock"
               />
               <Box>
@@ -204,7 +204,7 @@ const IssueDetails = () => {
             <Box display="flex" alignItems="center">
             <img
                 style={{ marginRight: "8px", color: "primary.main",width:"27px" }}
-                src="/last-minute.png"
+                src="/form-icons/last-minute.ico"
                 alt="dueDate"
               />
               <Box>
